@@ -1,0 +1,10 @@
+<div class="grid">
+  <div class="col-12">
+    <div *ngFor="let objective of quest.objectives">
+      {{objective.completeString}}
+    </div>
+  </div>
+  <div class="col-12">
+    <pre>{{quest.objectives |json}}</pre>
+  </div>
+</div>

@@ -5653,7 +5653,7 @@
         "target": "PMCs",
         "number": 3,
         "location": 2,
-        "with": ["Headshot from more than 125 meters"],
+        "with": ["Headshot from more than 100 meters"],
         "id": 190
       },
       {
@@ -5661,7 +5661,7 @@
         "target": "PMCs",
         "number": 3,
         "location": 6,
-        "with": ["Headshot from more than 125 meters"],
+        "with": ["Headshot from more than 100 meters"],
         "id": 191
       },
       {
@@ -5669,7 +5669,7 @@
         "target": "PMCs",
         "number": 3,
         "location": 3,
-        "with": ["Headshot from more than 125 meters"],
+        "with": ["Headshot from more than 100 meters"],
         "id": 192
       },
       {
@@ -5677,7 +5677,7 @@
         "target": "PMCs",
         "number": 3,
         "location": 1,
-        "with": ["Headshot from more than 125 meters"],
+        "with": ["Headshot from more than 100 meters"],
         "id": 193
       },
       {
@@ -5685,7 +5685,7 @@
         "target": "PMCs",
         "number": 3,
         "location": 7,
-        "with": ["Headshot from more than 125 meters"],
+        "with": ["Headshot from more than 100 meters"],
         "id": 505
       }
     ],
@@ -11430,7 +11430,7 @@
         "type": "pickup",
         "target": "Water pump operation data",
         "number": 1,
-        "location": 7, 
+        "location": 7,
         "id": 477,
         "gps": {
           "leftPercent": 43.9,
@@ -12031,7 +12031,7 @@
         "trader": 3,
         "rep": 0.02
       }
-    ], 
+    ],
     "objectives": [
       {
         "type": "kill",

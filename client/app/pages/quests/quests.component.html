@@ -1,14 +1,38 @@
+<!--<pre>{{pmcQuests | json}}</pre>-->
 <p-card>
   <p-table [columns]="tableColumns"
-           [value]="userActiveQuests"
+           [value]="filteredUserQuests"
            dataKey="id">
-    <ng-template pTemplate="header"
-                 let-columns>
+    <ng-template pTemplate="caption">
+      <div class="grid">
+        <div class="col-12 flex justify-content-end">
+          <p-toggleButton [formControl]="tableFiltersForm.controls.showCompleted"
+                          onIcon="pi pi-eye"
+                          onLabel="Hide Completed"
+                          offLabel="Show Completed"
+                          offIcon="pi pi-eye-slash"
+                          (click)="onToggleCompletedClick()"></p-toggleButton>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
       <tr>
         <th scope="col"></th>
         <th scope="col"
-            *ngFor="let col of columns">
-          {{col.header}}
+            pSortableColumn="title">Title
+          <p-sortIcon field="title"></p-sortIcon>
+        </th>
+        <th scope="col"
+            pSortableColumn="statusIcon.tooltip">Status
+          <p-sortIcon field="statusIcon.tooltip"></p-sortIcon>
+        </th>
+        <th scope="col"
+            pSortableColumn="giver">Giver
+          <p-sortIcon field="giver"></p-sortIcon>
+        </th>
+        <th scope="col"
+            pSortableColumn="location">Location
+          <p-sortIcon field="location"></p-sortIcon>
         </th>
       </tr>
     </ng-template>
@@ -31,8 +55,12 @@
             <ng-container *ngSwitchDefault>
               {{quest[column.field]}}
             </ng-container>
-            <ng-container *ngSwitchCase="'status'">
-              {{questStatus[quest.status ?? 1]}}
+            <ng-container *ngSwitchCase="'statusIcon'">
+              <button pButton
+                      type="button"
+                      [icon]="quest.statusIcon.name"
+                      [class]="quest.statusIcon.css"
+                      [pTooltip]="quest.statusIcon.tooltip"></button>
             </ng-container>
             <ng-container *ngSwitchCase="'giver'">
               {{tradersNames[quest.giver]}}
@@ -41,6 +69,14 @@
               {{locationNames[quest.location]}}
             </ng-container>
           </ng-container>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="rowexpansion"
+                 let-data>
+      <tr *ngIf="asQuestModel(data) as quest">
+        <td colspan="5">
+          <app-quest-row-detail [quest]="quest"></app-quest-row-detail>
         </td>
       </tr>
     </ng-template>

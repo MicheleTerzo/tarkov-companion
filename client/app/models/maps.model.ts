@@ -1,5 +1,3 @@
-import {Type} from 'class-transformer';
-
 export class MapInfoModel {
   id!: number;
   locale!: {
@@ -19,20 +17,5 @@ export class MapInfoModel {
 }
 
 export class MapsModel {
-  @Type(() => MapInfoModel)
-  factory!: MapInfoModel;
-  @Type(() => MapInfoModel)
-  customs!: MapInfoModel;
-  @Type(() => MapInfoModel)
-  woods!: MapInfoModel;
-  @Type(() => MapInfoModel)
-  shoreline!: MapInfoModel;
-  @Type(() => MapInfoModel)
-  interchange!: MapInfoModel;
-  @Type(() => MapInfoModel)
-  lab!: MapInfoModel;
-  @Type(() => MapInfoModel)
-  reserve!: MapInfoModel;
-  @Type(() => MapInfoModel)
-  lighthouse!: MapInfoModel;
+  [key: string]: MapInfoModel;
 }

@@ -1,24 +1,20 @@
-import {Injectable}      from '@angular/core';
-import {HttpClient}      from '@angular/common/http';
-import {firstValueFrom}  from 'rxjs';
+import {Injectable}               from '@angular/core';
+import {HttpClient}               from '@angular/common/http';
+import {firstValueFrom}           from 'rxjs';
 import {plainToInstance} from 'class-transformer';
-import {QuestModel}      from '../models/quest.model';
+import {QuestModel}      from '../models/quest/quest.model';
 import {UserModel}       from '../models/user.model';
-import {
-  MapInfoModel,
-  MapsModel
-}                        from '../models/maps.model';
+import {MapInfoModel, MapsModel}  from '../models/maps.model';
+import {ItemInfoModel, ItemModel} from '../models/item.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-
-  userProfile?: UserModel;
-
+  userProfile?: UserModel = plainToInstance(UserModel, {});
   questsDb: QuestModel[] = [];
-
-  mapsInfoDb: Map<number, MapInfoModel> = new Map();
+  mapsInfoDb: Map<string, MapInfoModel> = new Map();
+  itemInfoDb: Map<string, ItemInfoModel> = new Map();
 
   constructor(private http: HttpClient) {
   }
@@ -26,7 +22,9 @@ export class DataService {
   async initData(): Promise<void> {
     await Promise.all([
       this.getProfile(),
-      this.getQuests()
+      this.getQuests(),
+      this.getMapsInfo(),
+      this.getItemInfo()
     ]);
   }
 
@@ -44,23 +42,19 @@ export class DataService {
     return this.userProfile;
   }
 
-  async getMapsInfo(): Promise<Map<number, MapInfoModel>> {
+  async getMapsInfo(): Promise<Map<string, MapInfoModel>> {
     const get$ = this.http.get<MapsModel>('assets/db/maps.json');
     const res = await firstValueFrom(get$);
     const instance = plainToInstance(MapsModel, res);
-    this.mapsInfoDb = this.parseMapInfo(instance);
+    this.mapsInfoDb = new Map<string, MapInfoModel>(Object.entries(instance));
     return this.mapsInfoDb;
   }
 
-  private parseMapInfo(instance: MapsModel): Map<number, MapInfoModel> {
-    const mapsMap = new Map<number, MapInfoModel>();
-    const mapsNames = Object.keys(instance);
-    // @ts-ignore
-    mapsNames.forEach((mapName: keyof MapsModel) => {
-      const map = instance[mapName];
-      mapsMap.set(map.id, map);
-    });
-    return mapsMap;
+  async getItemInfo(): Promise<Map<string, ItemInfoModel>> {
+    const get$ = this.http.get<ItemModel>('assets/db/items.en.json');
+    const res = await firstValueFrom(get$);
+    const instance = plainToInstance(ItemModel, res);
+    this.itemInfoDb = new Map<string, ItemInfoModel>(Object.entries(instance));
+    return this.itemInfoDb;
   }
-
 }
