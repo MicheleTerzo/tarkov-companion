@@ -1,0 +1,18 @@
+export enum TRADERS {
+  PRAPOR,
+  THERAPIST,
+  SKIER,
+  PELATO,
+  MECHANIC,
+  RAGMAN,
+  CONTADINO,
+  FENCE
+}
+
+export enum QUEST_STATUS {
+  AVAILABLE = 1,
+  IN_PROGRESS = 2,
+  FINISHED = 3,
+  COMPLETED = 4,
+  FAILED = 5
+}
