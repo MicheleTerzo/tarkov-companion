@@ -1,0 +1,49 @@
+<p-card>
+  <p-table [columns]="tableColumns"
+           [value]="userActiveQuests"
+           dataKey="id">
+    <ng-template pTemplate="header"
+                 let-columns>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col"
+            *ngFor="let col of columns">
+          {{col.header}}
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body"
+                 let-columns="columns"
+                 let-rowData
+                 let-expanded="expanded"
+                 let-row>
+      <tr *ngIf="asQuestModel(rowData) as quest">
+        <td>
+          <button [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+                  [pRowToggler]="row"
+                  class="p-button-text p-button-rounded p-button-plain"
+                  pButton
+                  type="button"></button>
+        </td>
+        <td *ngFor="let col of columns">
+          <ng-container *ngIf="asQuestModelTableColumns(col) as column"
+                        [ngSwitch]="column.field">
+            <ng-container *ngSwitchDefault>
+              {{quest[column.field]}}
+            </ng-container>
+            <ng-container *ngSwitchCase="'status'">
+              {{questStatus[quest.status ?? 1]}}
+            </ng-container>
+            <ng-container *ngSwitchCase="'giver'">
+              {{tradersNames[quest.giver]}}
+            </ng-container>
+            <ng-container *ngSwitchCase="'location'">
+              {{locationNames[quest.location]}}
+            </ng-container>
+          </ng-container>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>
+
