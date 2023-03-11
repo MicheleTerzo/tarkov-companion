@@ -23,6 +23,7 @@
             pSortableColumn="location">Location
           <p-sortIcon field="location"></p-sortIcon>
         </th>
+        <th scope="col">Require</th>
       </tr>
       <tr>
         <th></th>
@@ -115,6 +116,7 @@
             </ng-template>
           </p-columnFilter>
         </th>
+        <th></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body"
@@ -149,6 +151,16 @@
             <ng-container *ngSwitchCase="'location'">
               {{locationNames[quest.location]}}
             </ng-container>
+            <ng-container *ngSwitchCase="'require'">
+              <div class="mb-2  flex"><h4 class="mr-2">Level</h4>{{quest.require.level}}</div>
+              <div>
+                <h4 class="mb-2"
+                    *ngIf="quest.require.quests.length">Quest</h4>
+                <div *ngFor="let reqQuest of quest.require.quests">
+                  - {{getRequiredQuest(reqQuest)}}
+                </div>
+              </div>
+            </ng-container>
           </ng-container>
         </td>
       </tr>
@@ -156,7 +168,7 @@
     <ng-template pTemplate="rowexpansion"
                  let-data>
       <tr *ngIf="asQuestModel(data) as quest">
-        <td colspan="5">
+        <td colspan="6">
           <app-quest-row-detail [quest]="quest"></app-quest-row-detail>
         </td>
       </tr>

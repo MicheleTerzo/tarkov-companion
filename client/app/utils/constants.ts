@@ -18,6 +18,10 @@ export const QUESTS_TABLE_COLUMNS: { header: string; field: keyof QuestModel }[]
   {
     header: 'Location',
     field : 'location'
+  },
+  {
+    header: 'Require',
+    field: 'require'
   }
 ];
 export const QUEST_STATUS_SELECT_OPTIONS = [

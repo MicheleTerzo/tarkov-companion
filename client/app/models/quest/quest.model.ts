@@ -55,8 +55,10 @@ export class QuestModel {
         return {name: 'pi pi-sync', css: `${standardClasses} p-button-info`, tooltip: 'In Progress'};
       case QUEST_STATUS.FINISHED:
         return {name: 'pi pi-verified', css: `${standardClasses} p-button-help`, tooltip: 'Finished'};
+      case QUEST_STATUS.LOCKED:
+        return {name: 'pi pi-lock', css: `${standardClasses} p-button-danger`, tooltip: 'Locked'};
       default:
-        return {name: 'pi pi-play', css: `${standardClasses} p-button-primary`, tooltip: 'Finished'};
+        return {name: 'pi pi-lock-open', css: `${standardClasses} p-button-primary`, tooltip: 'Available'};
     }
   }
 }

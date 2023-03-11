@@ -50,6 +50,11 @@ export class QuestsComponent implements OnInit {
     this.initData().then();
   }
 
+  getRequiredQuest(reqQuestId: number): string {
+    const quest = this.dataService.questsDb.find(quest => quest.id === reqQuestId);
+    return quest?.title ?? '';
+  }
+
   private async initData(): Promise<void> {
     const profile = await this.dataService.getProfile();
     const questDb = await this.dataService.getQuests();
@@ -63,12 +68,13 @@ export class QuestsComponent implements OnInit {
     }
     const pmcQuests = profile.characters.pmc.Quests;
     this.pmcQuests = pmcQuests;
-    return questsDB.filter((quest) => {
+    return questsDB.map((quest) => {
       const pmcQuest = pmcQuests.find((q) => q.qid === quest.gameId);
-      if (!pmcQuest) {
-        return;
+      if (pmcQuest) {
+        quest.status = pmcQuest.status;
+      } else {
+        quest.status = QUEST_STATUS.LOCKED;
       }
-      quest.status = pmcQuest.status;
       return quest;
     });
   }
