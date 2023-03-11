@@ -1,10 +1,14 @@
 <div class="grid">
   <div class="col-12">
+    <h4 class="mb-2">Objectives</h4>
     <div *ngFor="let objective of quest.objectives">
-      {{objective.completeString}}
+      <p class="mb-1">{{objective.completeString}}</p>
     </div>
   </div>
   <div class="col-12">
-    <pre>{{quest.objectives |json}}</pre>
+
   </div>
+  <!--<div class="col-12">
+    <pre>{{quest | json}}</pre>
+  </div>-->
 </div>

@@ -3,6 +3,7 @@ import {QUEST_STATUS}          from '../../utils/enums';
 import {QuestReputationModel}  from './quest-reputation.model';
 import {QuestObjectiveModel}   from './quest-objective.model';
 import {QuestRequirementModel} from './quest-requirement.model';
+import {MapInfoModel}          from '../maps.model';
 
 export class QuestModel {
   id!: number;
@@ -13,8 +14,6 @@ export class QuestModel {
   title!: string;
   locales!: {
     en: string;
-    ru: string;
-    cs: string
   };
   wiki!: string;
   exp!: number;
@@ -23,20 +22,21 @@ export class QuestModel {
   reputation!: QuestReputationModel[];
   @Type(() => QuestObjectiveModel)
   objectives!: QuestObjectiveModel[];
-  gameId!: string
+  gameId!: string;
   status?: QUEST_STATUS;
   noKappa?: boolean;
+  mapInfo?: MapInfoModel[];
 
   get location(): number {
     if (this.objectives.length > 1) {
       let locationId = -1;
       this.objectives.reduce((acc, curr) => {
         if (acc.location === curr.location) {
-          locationId = acc.location
-          return acc
+          locationId = acc.location;
+          return acc;
         } else {
-          locationId = -1
-          return curr
+          locationId = -1;
+          return curr;
         }
       });
       return locationId;
@@ -45,18 +45,18 @@ export class QuestModel {
   }
 
   get statusIcon(): { name: string; css: string; tooltip: string } {
-    const standardClasses = 'p-button-rounded p-button-outlined'
+    const standardClasses = 'p-button-rounded p-button-outlined';
     switch (this.status) {
       case QUEST_STATUS.COMPLETED:
         return {name: 'pi pi-check', css: `${standardClasses} p-button-success`, tooltip: 'Completed'};
       case QUEST_STATUS.FAILED:
         return {name: 'pi pi-times', css: `${standardClasses} p-button-danger`, tooltip: 'Failed'};
       case QUEST_STATUS.IN_PROGRESS:
-        return {name: 'pi pi-sync', css: `${standardClasses} p-button-info`, tooltip: 'In Progress'}
+        return {name: 'pi pi-sync', css: `${standardClasses} p-button-info`, tooltip: 'In Progress'};
       case QUEST_STATUS.FINISHED:
-        return {name: 'pi pi-verified', css: `${standardClasses} p-button-help`, tooltip: 'Finished'}
+        return {name: 'pi pi-verified', css: `${standardClasses} p-button-help`, tooltip: 'Finished'};
       default:
-        return {name: 'pi pi-play', css: `${standardClasses} p-button-primary`, tooltip: 'Finished'}
+        return {name: 'pi pi-play', css: `${standardClasses} p-button-primary`, tooltip: 'Finished'};
     }
   }
 }

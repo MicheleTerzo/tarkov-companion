@@ -3,18 +3,6 @@
   <p-table [columns]="tableColumns"
            [value]="filteredUserQuests"
            dataKey="id">
-    <ng-template pTemplate="caption">
-      <div class="grid">
-        <div class="col-12 flex justify-content-end">
-          <p-toggleButton [formControl]="tableFiltersForm.controls.showCompleted"
-                          onIcon="pi pi-eye"
-                          onLabel="Hide Completed"
-                          offLabel="Show Completed"
-                          offIcon="pi pi-eye-slash"
-                          (click)="onToggleCompletedClick()"></p-toggleButton>
-        </div>
-      </div>
-    </ng-template>
     <ng-template pTemplate="header">
       <tr>
         <th scope="col"></th>
@@ -33,6 +21,98 @@
         <th scope="col"
             pSortableColumn="location">Location
           <p-sortIcon field="location"></p-sortIcon>
+        </th>
+      </tr>
+      <tr>
+        <th></th>
+        <th>
+          <p-columnFilter type="text"
+                          field="title"
+                          placeholder="Search by title..."></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter
+            field="status"
+            matchMode="in"
+            [showMenu]="false"
+          >
+            <ng-template pTemplate="filter"
+                         let-value
+                         let-filter="filterCallback">
+              <p-multiSelect
+                [ngModel]="value"
+                [options]="statusSelectOptions"
+                placeholder="Status"
+                (onChange)="filter($event.value)"
+                optionLabel="label"
+                optionValue="value"
+                appendTo="body"
+              >
+                <ng-template let-option
+                             pTemplate="item">
+                  <div class="p-multiselect-representative-option">
+                    <span class="p-ml-1">{{ option.label }}</span>
+                  </div>
+                </ng-template>
+              </p-multiSelect>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter
+            field="giver"
+            matchMode="in"
+            [showMenu]="false"
+          >
+            <ng-template pTemplate="filter"
+                         let-value
+                         let-filter="filterCallback">
+              <p-multiSelect
+                [ngModel]="value"
+                [options]="tradersSelectOptions"
+                placeholder="Trader"
+                (onChange)="filter($event.value)"
+                optionLabel="label"
+                optionValue="value"
+                appendTo="body"
+              >
+                <ng-template let-option
+                             pTemplate="item">
+                  <div class="p-multiselect-representative-option">
+                    <span class="p-ml-1">{{ option.label }}</span>
+                  </div>
+                </ng-template>
+              </p-multiSelect>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter
+            field="location"
+            matchMode="in"
+            [showMenu]="false"
+          >
+            <ng-template pTemplate="filter"
+                         let-value
+                         let-filter="filterCallback">
+              <p-multiSelect
+                [ngModel]="value"
+                [options]="locationSelectOptions"
+                placeholder="Location"
+                (onChange)="filter($event.value)"
+                optionLabel="label"
+                optionValue="value"
+                appendTo="body"
+              >
+                <ng-template let-option
+                             pTemplate="item">
+                  <div class="p-multiselect-representative-option">
+                    <span class="p-ml-1">{{ option.label }}</span>
+                  </div>
+                </ng-template>
+              </p-multiSelect>
+            </ng-template>
+          </p-columnFilter>
         </th>
       </tr>
     </ng-template>
@@ -77,6 +157,14 @@
       <tr *ngIf="asQuestModel(data) as quest">
         <td colspan="5">
           <app-quest-row-detail [quest]="quest"></app-quest-row-detail>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage"
+                 let-columns>
+      <tr>
+        <td [attr.colspan]="columns.length +1">
+          No records found
         </td>
       </tr>
     </ng-template>

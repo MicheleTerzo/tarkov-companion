@@ -1,48 +1,39 @@
-import {Component, OnInit}                           from '@angular/core';
-import {LOCATIONS, QUEST_STATUS, TRADERS}            from '../../utils/enums';
-import {DataService}  from '../../services/data.service';
-import {QuestModel}   from '../../models/quest/quest.model';
-import {CommonModule} from '@angular/common';
-import {UserModel}                                   from '../../models/user.model';
-import {CardModule}                                  from 'primeng/card';
-import {TableModule}                                 from 'primeng/table';
-import {ButtonModule}                                from 'primeng/button';
-import {asInstance}                                  from '../../utils/constants';
-import {ToggleButtonModule}                          from 'primeng/togglebutton';
-import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
-import {TableFiltersFormInterface}                   from './interfaces/table-filters-form.interface';
-import {InputTextModule}                             from 'primeng/inputtext';
-import {TooltipModule}                               from 'primeng/tooltip';
-import {QuestRowDetailComponent}                     from './components/quest-row-detail/quest-row-detail.component';
+import {Component, OnInit}                                        from '@angular/core';
+import {LOCATIONS, QUEST_STATUS, TRADERS}                         from '../../utils/enums';
+import {DataService}                                              from '../../services/data.service';
+import {QuestModel}                                               from '../../models/quest/quest.model';
+import {CommonModule}                                             from '@angular/common';
+import {UserModel}                                                from '../../models/user.model';
+import {CardModule}                                               from 'primeng/card';
+import {TableModule}                                              from 'primeng/table';
+import {ButtonModule}                                             from 'primeng/button';
+import {
+  asInstance, LOCATION_SELECT_OPTIONS, QUEST_STATUS_SELECT_OPTIONS, QUESTS_TABLE_COLUMNS, TRADERS_SELECT_OPTIONS
+}                                                                 from '../../utils/constants';
+import {ToggleButtonModule}                                       from 'primeng/togglebutton';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {TableFiltersFormInterface}                                from './interfaces/table-filters-form.interface';
+import {InputTextModule}                                          from 'primeng/inputtext';
+import {TooltipModule}                                            from 'primeng/tooltip';
+import {
+  QuestRowDetailComponent
+}                                                                 from './components/quest-row-detail/quest-row-detail.component';
+import {MultiSelectModule}                                        from 'primeng/multiselect';
 
 @Component({
   selector   : 'app-quests',
   templateUrl: './quests.component.html',
   standalone : true,
-  imports: [CommonModule, CardModule, TableModule, ButtonModule, ToggleButtonModule, ReactiveFormsModule, InputTextModule, TooltipModule, QuestRowDetailComponent],
+  imports    : [CommonModule, CardModule, TableModule, ButtonModule, ToggleButtonModule, ReactiveFormsModule, InputTextModule, TooltipModule, QuestRowDetailComponent, MultiSelectModule, FormsModule],
   styleUrls  : ['./quests.component.scss']
 })
 export class QuestsComponent implements OnInit {
   userActiveQuests: QuestModel[] = [];
   filteredUserQuests: QuestModel[] = [];
-  tableColumns: { header: string; field: keyof QuestModel }[] = [
-    {
-      header: 'Title',
-      field : 'title'
-    },
-    {
-      header: 'Status',
-      field : 'statusIcon'
-    },
-    {
-      header: 'Trader',
-      field : 'giver'
-    },
-    {
-      header: 'Location',
-      field : 'location'
-    }
-  ]
+  tableColumns = QUESTS_TABLE_COLUMNS;
+  tradersSelectOptions = TRADERS_SELECT_OPTIONS;
+  statusSelectOptions = QUEST_STATUS_SELECT_OPTIONS;
+  locationSelectOptions = LOCATION_SELECT_OPTIONS;
   asQuestModel = asInstance<QuestModel>();
   asQuestModelTableColumns = asInstance<{ header: string; field: keyof QuestModel }>();
   tableFiltersForm: FormGroup<TableFiltersFormInterface>;
@@ -59,24 +50,11 @@ export class QuestsComponent implements OnInit {
     this.initData().then();
   }
 
-  onToggleCompletedClick() {
-    if (!this.tableFiltersForm.controls.showCompleted.value) {
-      this.filteredUserQuests = this.userActiveQuests.filter(
-        q => q.status !== QUEST_STATUS.COMPLETED && q.status !== QUEST_STATUS.FAILED)
-    } else {
-      this.filteredUserQuests = this.userActiveQuests
-    }
-  }
-
   private async initData(): Promise<void> {
     const profile = await this.dataService.getProfile();
-    const questDb = this.dataService.questsDb;
-    if (!questDb.length) {
-      await this.dataService.getQuests();
-    }
+    const questDb = await this.dataService.getQuests();
     this.userActiveQuests = this.findCommonQuests(profile, questDb);
-    this.filteredUserQuests = this.userActiveQuests.filter(
-      q => q.status !== QUEST_STATUS.COMPLETED && q.status !== QUEST_STATUS.FAILED);
+    this.filteredUserQuests = this.userActiveQuests;
   }
 
   private findCommonQuests(profile: UserModel, questsDB: QuestModel[]): QuestModel[] {
@@ -84,15 +62,15 @@ export class QuestsComponent implements OnInit {
       return [];
     }
     const pmcQuests = profile.characters.pmc.Quests;
-    this.pmcQuests = pmcQuests
+    this.pmcQuests = pmcQuests;
     return questsDB.filter((quest) => {
       const pmcQuest = pmcQuests.find((q) => q.qid === quest.gameId);
       if (!pmcQuest) {
         return;
       }
       quest.status = pmcQuest.status;
-      return quest
-    })
+      return quest;
+    });
   }
 
   private initForm(): FormGroup<TableFiltersFormInterface> {

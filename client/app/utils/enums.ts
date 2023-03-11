@@ -2,7 +2,7 @@ export enum TRADERS {
   PRAPOR,
   THERAPIST,
   SKIER,
-  PELATO,
+  PEACEKEEPER,
   MECHANIC,
   RAGMAN,
   JAEGER,
@@ -10,6 +10,7 @@ export enum TRADERS {
 }
 
 export enum QUEST_STATUS {
+  LOCKED      = 0,
   AVAILABLE   = 1,
   IN_PROGRESS = 2,
   FINISHED    = 3,
