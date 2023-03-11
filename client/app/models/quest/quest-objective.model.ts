@@ -12,5 +12,5 @@ export class QuestObjectiveModel {
   id!: number;
   @Type(() => QuestGpsPosition)
   gps?: QuestGpsPosition;
-  with?: string[] | GunsmithRequirements;
+  with?: string[] | GunsmithRequirements[];
 }
