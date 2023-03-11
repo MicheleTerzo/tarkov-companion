@@ -3,7 +3,7 @@ import {QUEST_STATUS}          from '../../utils/enums';
 import {QuestReputationModel}  from './quest-reputation.model';
 import {QuestObjectiveModel}   from './quest-objective.model';
 import {QuestRequirementModel} from './quest-requirement.model';
-import {MapInfoModel}          from '../maps.model';
+import {QuestMapInfoModel}     from './quest-map-info.model';
 
 export class QuestModel {
   id!: number;
@@ -25,7 +25,7 @@ export class QuestModel {
   gameId!: string;
   status?: QUEST_STATUS;
   noKappa?: boolean;
-  mapInfo?: MapInfoModel[];
+  mapInfo?: QuestMapInfoModel[];
 
   get location(): number {
     if (this.objectives.length > 1) {

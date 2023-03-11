@@ -1,33 +1,26 @@
-import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
-import {CommonModule}                                       from '@angular/common';
-import {DataService}                                        from '../../../../services/data.service';
-import {QuestModel}                                         from '../../../../models/quest/quest.model';
-import {GunsmithRequirements}                               from '../../../../models/quest/gunsmith-requirements.model';
-import {LOCATIONS, TRADERS}                                 from '../../../../utils/enums';
-import {QuestObjectiveModel}                                from '../../../../models/quest/quest-objective.model';
+import {Component, Input, OnInit} from '@angular/core';
+import {CommonModule}             from '@angular/common';
+import {DataService}              from '../../../../services/data.service';
+import {QuestModel}               from '../../../../models/quest/quest.model';
+import {GunsmithRequirements}     from '../../../../models/quest/gunsmith-requirements.model';
+import {LOCATIONS, TRADERS}       from '../../../../utils/enums';
+import {QuestObjectiveModel}      from '../../../../models/quest/quest-objective.model';
+import {SvgMapComponent}          from '../../../../components/svg-map/svg-map.component';
 
 @Component({
   selector   : 'app-quest-row-detail',
   standalone : true,
-  imports    : [CommonModule],
+  imports    : [CommonModule, SvgMapComponent],
   templateUrl: './quest-row-detail.component.html',
   styleUrls  : ['./quest-row-detail.component.scss']
 })
-export class QuestRowDetailComponent implements OnInit, AfterViewInit{
+export class QuestRowDetailComponent implements OnInit {
   @Input() quest!: QuestModel;
-  @ViewChild('mapPlace') mapPlace?: HTMLElement;
 
   constructor(private dataService: DataService) {
   }
 
-  ngAfterViewInit(): void {
-    console.log(this.mapPlace);
-  }
-
-
-
   ngOnInit(): void {
-    this.canvasTest();
     this.quest.objectives.forEach(objective => {
       if (objective.with instanceof GunsmithRequirements) {
         return this.generateGunsmithRequirements();
@@ -81,8 +74,25 @@ export class QuestRowDetailComponent implements OnInit, AfterViewInit{
   }
 
   private loadMapData(objective: QuestObjectiveModel) {
-  }
-
-  private canvasTest() {
+    if (objective.location < 0 || !objective.gps) {
+      return;
+    }
+    let questMapInfo = this.quest.mapInfo ?? [];
+    const mapDbKey = LOCATIONS[objective.location].toLowerCase();
+    const map = this.dataService.mapsInfoDb.get(mapDbKey);
+    if (!map) {
+      return;
+    }
+    const existingMapIndex = questMapInfo.findIndex(mapInfo => mapInfo.mapName === mapDbKey.toUpperCase());
+    if (existingMapIndex >= 0) {
+      questMapInfo[existingMapIndex].objectives.push(objective);
+    } else {
+      questMapInfo.push({
+        mapName   : LOCATIONS[objective.location],
+        mapData   : map,
+        objectives: [objective]
+      });
+    }
+    this.quest.mapInfo = questMapInfo;
   }
 }

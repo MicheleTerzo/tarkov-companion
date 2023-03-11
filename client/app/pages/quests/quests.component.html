@@ -2,7 +2,8 @@
 <p-card>
   <p-table [columns]="tableColumns"
            [value]="filteredUserQuests"
-           dataKey="id">
+           dataKey="id"
+           rowExpandMode="single">
     <ng-template pTemplate="header">
       <tr>
         <th scope="col"></th>

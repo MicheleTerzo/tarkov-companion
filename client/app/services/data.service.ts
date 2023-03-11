@@ -3,8 +3,8 @@ import {HttpClient}               from '@angular/common/http';
 import {firstValueFrom}           from 'rxjs';
 import {plainToInstance} from 'class-transformer';
 import {QuestModel}      from '../models/quest/quest.model';
-import {UserModel}       from '../models/user.model';
-import {MapInfoModel, MapsModel}  from '../models/maps.model';
+import {UserModel}                from '../models/user.model';
+import {MapInfoModel, MapsModel}  from '../models/maps/maps.model';
 import {ItemInfoModel, ItemModel} from '../models/item.model';
 
 @Injectable({

@@ -5,10 +5,8 @@
       <p class="mb-1">{{objective.completeString}}</p>
     </div>
   </div>
-  <div class="col-12">
-
+  <div class="col-12"
+       *ngFor="let map of quest.mapInfo">
+    <app-svg-map [mapInfo]="map"></app-svg-map>
   </div>
-  <!--<div class="col-12">
-    <pre>{{quest | json}}</pre>
-  </div>-->
 </div>
