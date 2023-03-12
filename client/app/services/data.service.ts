@@ -1,10 +1,10 @@
-import {Injectable}               from '@angular/core';
-import {HttpClient}               from '@angular/common/http';
-import {firstValueFrom}           from 'rxjs';
-import {plainToInstance}          from 'class-transformer';
-import {QuestModel}               from '../models/quest/quest.model';
-import {UserModel}                from '../models/user.model';
-import {MapInfoModel, MapsModel}  from '../models/maps/maps.model';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {firstValueFrom} from 'rxjs';
+import {plainToInstance} from 'class-transformer';
+import {QuestModel} from '../models/quest/quest.model';
+import {UserModel} from '../models/user.model';
+import {MapInfoModel, MapsModel} from '../models/maps/maps.model';
 import {ItemInfoModel, ItemModel} from '../models/item.model';
 
 @Injectable({
@@ -16,6 +16,7 @@ export class DataService {
   mapsInfoDb: Map<string, MapInfoModel> = new Map();
   itemInfoDb: Map<string, ItemInfoModel> = new Map();
   questDbArray: QuestModel[] = [];
+  private mockProfileUrl = 'assets/db/mock-profile.json';
 
   constructor(private http: HttpClient) {
   }
@@ -39,7 +40,8 @@ export class DataService {
   }
 
   async getProfile(): Promise<UserModel> {
-    const get$ = this.http.get('http://localhost:3000/user-profile');
+    //'http://localhost:3000/user-profile'
+    const get$ = this.http.get(this.mockProfileUrl);
     const res = await firstValueFrom(get$);
     this.userProfile = plainToInstance(UserModel, res);
     return this.userProfile;

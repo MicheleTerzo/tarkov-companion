@@ -5,17 +5,19 @@ import {AppComponent}            from './app.component';
 import {HttpClientModule}        from '@angular/common/http';
 import {FormsModule}             from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {HeaderComponent} from './components/header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
-  imports     : [
+  imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    HeaderComponent
   ],
   providers   : [],
   exports     : [],
