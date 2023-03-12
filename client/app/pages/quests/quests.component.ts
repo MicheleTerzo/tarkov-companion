@@ -19,12 +19,14 @@ import {
   QuestRowDetailComponent
 }                                                                 from './components/quest-row-detail/quest-row-detail.component';
 import {MultiSelectModule}                                        from 'primeng/multiselect';
+import {AnimateModule}                                            from 'primeng/animate';
+import {ObserverVisibilityDirective}                              from '../../directives/observer-visibility.directive';
 
 @Component({
   selector   : 'app-quests',
   templateUrl: './quests.component.html',
   standalone : true,
-  imports    : [CommonModule, CardModule, TableModule, ButtonModule, ToggleButtonModule, ReactiveFormsModule, InputTextModule, TooltipModule, QuestRowDetailComponent, MultiSelectModule, FormsModule],
+  imports    : [CommonModule, CardModule, TableModule, ButtonModule, ToggleButtonModule, ReactiveFormsModule, InputTextModule, TooltipModule, QuestRowDetailComponent, MultiSelectModule, FormsModule, AnimateModule, ObserverVisibilityDirective],
   styleUrls  : ['./quests.component.scss']
 })
 export class QuestsComponent implements OnInit {
@@ -50,14 +52,14 @@ export class QuestsComponent implements OnInit {
     this.initData().then();
   }
 
-  getRequiredQuest(reqQuestId: number): string {
-    const quest = this.dataService.questsDb.find(quest => quest.id === reqQuestId);
-    return quest?.title ?? '';
+  getRequiredQuest(reqQuestId: number): QuestModel | undefined {
+    return this.dataService.questsDbMap.get(reqQuestId.toString());
   }
 
   private async initData(): Promise<void> {
     const profile = await this.dataService.getProfile();
-    const questDb = await this.dataService.getQuests();
+    await this.dataService.getQuests();
+    const questDb = this.dataService.questDbArray;
     this.userActiveQuests = this.findCommonQuests(profile, questDb);
     this.filteredUserQuests = this.userActiveQuests;
   }

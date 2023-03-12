@@ -41,7 +41,7 @@ export class QuestModel {
       });
       return locationId;
     }
-    return this.objectives[0].location ?? -1;
+    return this.objectives[0]?.location ?? -1;
   }
 
   get statusIcon(): { name: string; css: string; tooltip: string } {

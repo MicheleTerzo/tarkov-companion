@@ -1,7 +1,7 @@
 <div class="grid">
+  <h3 class="mb-2">{{mapInfo.mapName.toUpperCase()}}</h3>
   <div class="col-12 map-container"
        #container>
-    <h3>{{mapInfo.mapName.toUpperCase()}}</h3>
     <p-progressBar mode="indeterminate"
                    *ngIf="loading"></p-progressBar>
     <ng-container *ngIf="!loading">
@@ -15,7 +15,12 @@
 </div>
 <p-overlayPanel #op>
   <ng-template pTemplate="">
-    <p>{{markerOverlayContent.objectiveName}}</p>
-    {{markerOverlayContent.floor}}
+    <div class="mb-3">
+      <h4 class="mb-2">Objective</h4>
+      {{markerOverlayContent.objectiveName}}
+    </div>
+    <div>
+      <h4 class="mb-2">Level</h4> {{markerOverlayContent.floor}}
+    </div>
   </ng-template>
 </p-overlayPanel>

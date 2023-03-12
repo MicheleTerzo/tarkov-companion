@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CommonModule}             from '@angular/common';
 import {DataService}              from '../../../../services/data.service';
-import {QuestModel}               from '../../../../models/quest/quest.model';
-import {LOCATIONS, TRADERS}       from '../../../../utils/enums';
-import {QuestObjectiveModel}      from '../../../../models/quest/quest-objective.model';
+import {QuestModel}                       from '../../../../models/quest/quest.model';
+import {LOCATIONS, QUEST_STATUS, TRADERS} from '../../../../utils/enums';
+import {QuestObjectiveModel}              from '../../../../models/quest/quest-objective.model';
 import {SvgMapComponent}          from '../../../../components/svg-map/svg-map.component';
 import {asInstance}               from '../../../../utils/constants';
 import {GunsmithRequirements}     from '../../../../models/quest/gunsmith-requirements.model';
@@ -19,6 +19,7 @@ export class QuestRowDetailComponent implements OnInit {
   @Input() quest!: QuestModel;
   isGunsmithQuest = false;
   asGunsmithModel = asInstance<GunsmithRequirements[]>();
+  questStatus = QUEST_STATUS;
 
   readonly traderNames = TRADERS;
 

@@ -1,5 +1,6 @@
-<div class="grid">
-  <div class="col-6">
+<div class="grid detail-container p-3"
+     [class]="questStatus[quest.status!] + '-border'">
+  <div class="col">
     <h4 class="mb-2">Objectives</h4>
     <div *ngFor="let objective of quest.objectives"
          class="mb-1">
@@ -17,21 +18,21 @@
       </ng-template>
     </div>
   </div>
-  <div class="col-2 flex">
-    <h4 class="mr-2">EXP</h4> {{quest.exp}}
+  <div class="col">
+    <h4 class="mb-2">EXP</h4> {{quest.exp}}
   </div>
-  <div class="col-2">
+  <div class="col">
     <h4 class="mb-2">Reputation</h4>
     <div *ngFor="let traderRep of quest.reputation">
       {{traderNames[traderRep.trader]}} {{traderRep.rep}}
     </div>
   </div>
-  <div class="col-2">
+  <div class="col">
     <h4 class="mb-2">Wiki</h4>
     <a [href]="quest.wiki"
        target="_blank"><i class="pi pi-external-link"></i></a>
   </div>
-  <div class="col-12"
+  <div class="col-12 mt-3"
        *ngFor="let map of quest.mapInfo">
     <app-svg-map [mapInfo]="map"></app-svg-map>
   </div>

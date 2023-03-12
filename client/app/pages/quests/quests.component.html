@@ -23,7 +23,10 @@
             pSortableColumn="location">Location
           <p-sortIcon field="location"></p-sortIcon>
         </th>
-        <th scope="col">Require</th>
+        <th scope="col"
+            pSortableColumn="require.level">Require
+          <p-sortIcon field="require.level"></p-sortIcon>
+        </th>
       </tr>
       <tr>
         <th></th>
@@ -124,13 +127,15 @@
                  let-rowData
                  let-expanded="expanded"
                  let-row>
-      <tr *ngIf="asQuestModel(rowData) as quest">
+      <tr *ngIf="asQuestModel(rowData) as quest"
+          [class]="questStatus[quest.status!] + '-gradient'">
         <td>
           <button [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
                   [pRowToggler]="row"
                   class="p-button-text p-button-rounded p-button-plain"
                   pButton
-                  type="button"></button>
+                  type="button"
+                  pTooltip="Expand"></button>
         </td>
         <td *ngFor="let col of columns">
           <ng-container *ngIf="asQuestModelTableColumns(col) as column"
@@ -155,9 +160,9 @@
               <div class="mb-2  flex"><h4 class="mr-2">Level</h4>{{quest.require.level}}</div>
               <div>
                 <h4 class="mb-2"
-                    *ngIf="quest.require.quests.length">Quest</h4>
+                    *ngIf="quest.require.quests.length">Quests:</h4>
                 <div *ngFor="let reqQuest of quest.require.quests">
-                  - {{getRequiredQuest(reqQuest)}}
+                  <p [style.color]="'var(--primary-color)'">{{getRequiredQuest(reqQuest)?.title ?? ''}}</p>
                 </div>
               </div>
             </ng-container>

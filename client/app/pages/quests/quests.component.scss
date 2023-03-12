@@ -1,0 +1,30 @@
+.COMPLETED-gradient {
+  background : rgb(102, 125, 59) !important;
+  background : linear-gradient(90deg, rgba(102, 125, 59, 0.2) 0%, rgba(255, 255, 255, 0) 100%) !important;
+}
+
+.LOCKED-gradient {
+  background : rgb(233, 5, 5) !important;
+  background : linear-gradient(90deg, rgba(233, 5, 5, 0.2) 0%, rgba(255, 255, 255, 0) 100%) !important;
+}
+
+.AVAILABLE-gradient {
+  background : rgb(128, 102, 25) !important;
+  background : linear-gradient(90deg, rgba(128, 102, 25, 0.2) 0%, rgba(255, 255, 255, 0) 100%) !important;
+}
+
+.IN_PROGRESS-gradient {
+  background : rgb(31, 119, 161) !important;
+  background : linear-gradient(90deg, rgba(31, 119, 161, 0.2) 0%, rgba(255, 255, 255, 0) 100%) !important;
+}
+
+.FINISHED-gradient {
+  background : rgb(126, 65, 136) !important;
+  background : linear-gradient(90deg, rgba(126, 65, 136, 0.2) 0%, rgba(255, 255, 255, 0) 100%) !important;
+}
+
+.FAILED-gradient {
+  background : rgb(149, 37, 75) !important;
+  background : linear-gradient(90deg, rgba(149, 37, 75, 0.2) 0%, rgba(255, 255, 255, 0) 100%) !important;
+}
+

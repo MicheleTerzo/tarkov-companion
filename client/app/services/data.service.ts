@@ -1,8 +1,8 @@
 import {Injectable}               from '@angular/core';
 import {HttpClient}               from '@angular/common/http';
 import {firstValueFrom}           from 'rxjs';
-import {plainToInstance} from 'class-transformer';
-import {QuestModel}      from '../models/quest/quest.model';
+import {plainToInstance}          from 'class-transformer';
+import {QuestModel}               from '../models/quest/quest.model';
 import {UserModel}                from '../models/user.model';
 import {MapInfoModel, MapsModel}  from '../models/maps/maps.model';
 import {ItemInfoModel, ItemModel} from '../models/item.model';
@@ -12,9 +12,10 @@ import {ItemInfoModel, ItemModel} from '../models/item.model';
 })
 export class DataService {
   userProfile?: UserModel = plainToInstance(UserModel, {});
-  questsDb: QuestModel[] = [];
+  questsDbMap: Map<string, QuestModel> = new Map();
   mapsInfoDb: Map<string, MapInfoModel> = new Map();
   itemInfoDb: Map<string, ItemInfoModel> = new Map();
+  questDbArray: QuestModel[] = [];
 
   constructor(private http: HttpClient) {
   }
@@ -28,16 +29,18 @@ export class DataService {
     ]);
   }
 
-  async getQuests(): Promise<QuestModel[]> {
+  async getQuests(): Promise<Map<string, QuestModel>> {
     const get$ = this.http.get<QuestModel[]>('assets/db/quests.json');
     const res = await firstValueFrom(get$);
-    this.questsDb = plainToInstance(QuestModel, res);
-    return this.questsDb;
+    const instance = plainToInstance(QuestModel, res);
+    this.questDbArray = instance;
+    this.questsDbMap = new Map<string, QuestModel>(Object.entries(instance));
+    return this.questsDbMap;
   }
 
   async getProfile(): Promise<UserModel> {
     const get$ = this.http.get('http://localhost:3000/user-profile');
-    const res = await firstValueFrom(get$)
+    const res = await firstValueFrom(get$);
     this.userProfile = plainToInstance(UserModel, res);
     return this.userProfile;
   }
