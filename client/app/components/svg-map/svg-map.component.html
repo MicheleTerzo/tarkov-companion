@@ -1,15 +1,14 @@
 <div class="grid">
-  <h3 class="mb-2">{{mapInfo.mapName.toUpperCase()}}</h3>
   <div class="col-12 map-container"
        #container>
     <p-progressBar mode="indeterminate"
                    *ngIf="loading"></p-progressBar>
     <ng-container *ngIf="!loading">
-      <i class="pi pi-map-marker marker"
-         *ngFor="let obj of mapInfo.objectives; let i = index"
-         [style]="{position: 'absolute', top: obj.gps!.topPercent.toString()+'%', left: obj.gps!.leftPercent.toString()+'%'}"
-         (mouseenter)="onMarkerEnter($event, op, i)"
-         (mouseleave)="op.hide()"></i>
+      <!-- <i class="pi pi-map-marker marker"
+          *ngFor="let obj of mapInfo.objectives; let i = index"
+          [style]="{position: 'absolute', top: obj.gps!.topPercent.toString()+'%', left: obj.gps!.leftPercent.toString()+'%'}"
+          (mouseenter)="onMarkerEnter($event, op, i)"
+          (mouseleave)="op.hide()"></i>-->
     </ng-container>
   </div>
 </div>

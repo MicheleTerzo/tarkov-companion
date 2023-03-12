@@ -12,8 +12,8 @@ export class AppComponent implements OnInit {
   constructor(private dataService: DataService) {
   }
 
-  ngOnInit(): void {
-    this.initData().then()
+ async ngOnInit(): Promise<void> {
+   await this.initData();
   }
 
   async initData(): Promise<void> {

@@ -1,8 +1,8 @@
-import {QuestsComponent} from "./quests.component";
+import {QuestsComponent} from './quests.component';
 
 export const QUESTS_ROUTES = [
   {
-    path: '',
+    path     : '',
     component: QuestsComponent
   }
-]
+];

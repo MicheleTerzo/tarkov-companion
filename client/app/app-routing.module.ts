@@ -1,15 +1,20 @@
-import {NgModule} from '@angular/core';
+import {NgModule}             from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {AppComponent} from "./app.component";
+import {HomeComponent}        from './pages/home/home.component';
 
 const routes: Routes = [
   {
-    path: '',
-    component: AppComponent
+    path     : 'home',
+    component: HomeComponent
   },
   {
-    path: 'quests',
+    path        : 'quests',
     loadChildren: () => import('./pages/quests/routes').then(m => m.QUESTS_ROUTES)
+  },
+  {
+    path      : '',
+    redirectTo: 'home',
+    pathMatch : 'full'
   }
 ];
 

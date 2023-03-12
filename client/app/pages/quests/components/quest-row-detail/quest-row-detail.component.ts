@@ -1,12 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {CommonModule}             from '@angular/common';
-import {DataService}              from '../../../../services/data.service';
+import {Component, Input, OnInit}         from '@angular/core';
+import {CommonModule}                     from '@angular/common';
+import {DataService}                      from '../../../../services/data.service';
 import {QuestModel}                       from '../../../../models/quest/quest.model';
 import {LOCATIONS, QUEST_STATUS, TRADERS} from '../../../../utils/enums';
 import {QuestObjectiveModel}              from '../../../../models/quest/quest-objective.model';
-import {SvgMapComponent}          from '../../../../components/svg-map/svg-map.component';
-import {asInstance}               from '../../../../utils/constants';
-import {GunsmithRequirements}     from '../../../../models/quest/gunsmith-requirements.model';
+import {SvgMapComponent}                  from '../../../../components/svg-map/svg-map.component';
+import {asInstance}                       from '../../../../utils/constants';
+import {GunsmithRequirements}             from '../../../../models/quest/gunsmith-requirements.model';
 
 @Component({
   selector   : 'app-quest-row-detail',
@@ -20,7 +20,6 @@ export class QuestRowDetailComponent implements OnInit {
   isGunsmithQuest = false;
   asGunsmithModel = asInstance<GunsmithRequirements[]>();
   questStatus = QUEST_STATUS;
-
   readonly traderNames = TRADERS;
 
   constructor(private dataService: DataService) {
@@ -45,7 +44,6 @@ export class QuestRowDetailComponent implements OnInit {
     }
     this.quest.objectives.forEach(objective => {
       this.parseQuestObjectives(objective);
-      this.loadMapData(objective);
     });
   }
 
@@ -90,46 +88,4 @@ export class QuestRowDetailComponent implements OnInit {
     }
     objective.completeString = string.toUpperCase();
   }
-
-  private loadMapData(objective: QuestObjectiveModel) {
-    if (objective.location < 0 || !objective.gps) {
-      return;
-    }
-    let questMapInfo = this.quest.mapInfo ?? [];
-    const mapDbKey = LOCATIONS[objective.location].toLowerCase();
-    const map = this.dataService.mapsInfoDb.get(mapDbKey);
-    if (!map) {
-      return;
-    }
-    const existingMapIndex = questMapInfo.findIndex(mapInfo => mapInfo.mapName === mapDbKey.toUpperCase());
-    if (existingMapIndex >= 0) {
-      questMapInfo[existingMapIndex].objectives.push(objective);
-    } else {
-      questMapInfo.push({
-        mapName   : LOCATIONS[objective.location],
-        mapData   : map,
-        objectives: [objective]
-      });
-    }
-    this.quest.mapInfo = questMapInfo;
-  }
 }
-
-/*
- if (withKey) {
- if (!(withKey instanceof Array<GunsmithRequirements>)) {
- withKey = objective.with as string[];
- if (withKey.length) {
- withKey.forEach(keyword => {
- string = `${string} (${this.dataService.itemInfoDb.get(keyword)?.name ?? keyword})`;
- });
- }
- } else {
- withKey = objective.with as GunsmithRequirements[];
- withKey.forEach(keyword => {
- console.log(keyword);
- string = `${string} (${keyword.type}: ${keyword.name ?? ''} ${keyword.value ?? ''} ${this.dataService.itemInfoDb.get(keyword.id!)?.name ?? ''})`
- })
- console.log('asdasdasd')
- }
- }*/

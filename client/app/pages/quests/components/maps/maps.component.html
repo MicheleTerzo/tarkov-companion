@@ -1,0 +1,14 @@
+<div class="card">
+  <p-selectButton [options]="mapsSelectionOptions"
+                  [formControl]="selectedMapKey"
+                  (onOptionClick)="onMapsChange()"></p-selectButton>
+  <!--  {{selectedMap | json}}-->
+  <div class="grid">
+    <div class="col-6">
+      <app-svg-map [mapInfo]="selectedMap"></app-svg-map>
+    </div>
+  </div>
+</div>
+<div>
+  {{questsToShow | json}}
+</div>
