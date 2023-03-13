@@ -1,10 +1,10 @@
 import {Component, ElementRef, Input, ViewChild} from '@angular/core';
 import {CommonModule}                            from '@angular/common';
-import * as d3                                   from 'd3';
 import {ProgressBarModule}                       from 'primeng/progressbar';
 import {TooltipModule}                           from 'primeng/tooltip';
 import {OverlayPanelModule}                      from 'primeng/overlaypanel';
 import {MapInfoModel}                            from '../../models/maps/maps.model';
+import * as L                                    from 'leaflet';
 
 @Component({
   selector   : 'app-svg-map',
@@ -35,13 +35,25 @@ export class SvgMapComponent {
    };
    op.show($event);
    }*/
-  private async loadMap(): Promise<void> {
-    const element = this.container.nativeElement;
-    d3.select(element).selectAll('svg').remove();
-    const mapSvg = await d3.svg(`assets/maps/edites/${this.mapInfo.svg.file}`);
-    d3.select(element).node()?.append(mapSvg.documentElement);
-    d3.select(element).select('svg').style('width', '100%');
-    d3.select(element).select('svg').style('height', '100%');
+
+  /*private async loadMap(): Promise<void> {
+   const element = this.container.nativeElement;
+   d3.select(element).selectAll('svg').remove();
+   const mapSvg = await d3.svg(`assets/maps/edites/${this.mapInfo.svg.file}`);
+   d3.select(element).node()?.append(mapSvg.documentElement);
+   d3.select(element).select('svg').style('width', '100%');
+   d3.select(element).select('svg').style('height', '100%');
+   this.loading = false;
+   }*/
+  async loadMap(): Promise<void> {
     this.loading = false;
+    const map = L.map('map', {
+      crs: L.CRS.Simple,
+      minZoom: -10
+    });
+    const imageUrl = `assets/maps/CustomsLargeExpansionGloryMonki.png`;
+
+    L.imageOverlay(imageUrl, [[0,0], [1080, 1920]]).addTo(map);
+    map.fitBounds([[0,0], [1080, 1920]]);
   }
 }
