@@ -25,6 +25,7 @@ export class QuestModel {
   status?: QUEST_STATUS;
   noKappa?: boolean;
 
+  //todo: revision this fn
   get location(): number {
     if (this.objectives.length > 1) {
       let locationId = -1;

@@ -35,4 +35,5 @@ export enum LOCATIONS {
   LAB,
   RESERVE,
   LIGHTHOUSE,
+  STREETS_OF_TARKOV
 }

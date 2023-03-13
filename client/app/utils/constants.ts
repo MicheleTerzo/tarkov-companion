@@ -111,7 +111,7 @@ export const LOCATION_SELECT_OPTIONS = [
   },
   {
     value: LOCATIONS.LAB,
-    label: 'LAB'
+    label: 'THE LAB'
   },
   {
     value: LOCATIONS.RESERVE,
@@ -120,5 +120,9 @@ export const LOCATION_SELECT_OPTIONS = [
   {
     value: LOCATIONS.LIGHTHOUSE,
     label: 'LIGHTHOUSE'
+  },
+  {
+    value: LOCATIONS.STREETS_OF_TARKOV,
+    label: 'STREETS OF TARKOV'
   }
 ];
