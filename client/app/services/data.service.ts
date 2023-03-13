@@ -41,7 +41,7 @@ export class DataService {
 
   async getProfile(): Promise<UserModel> {
     //'http://localhost:3000/user-profile'
-    const get$ = this.http.get('http://localhost:3000/user-profile');
+    const get$ = this.http.get(this.mockProfileUrl);
     const res = await firstValueFrom(get$);
     this.userProfile = plainToInstance(UserModel, res);
     return this.userProfile;

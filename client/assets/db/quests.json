@@ -2373,6 +2373,13 @@
         "location": 2,
         "with": ["UNTAR helmet", "MF-UNTAR armor vest", "Colt M4A1"],
         "id": 100
+      },
+      {
+        "type": "kill",
+        "target": "Scavs",
+        "number": 12,
+        "location": 8,
+        "with": ["UNTAR helmet", "MF-UNTAR armor vest", "Colt M4A1"]
       }
     ],
     "gameId": "5c0d4c12d09282029f539173"
@@ -5687,6 +5694,13 @@
         "location": 7,
         "with": ["Headshot from more than 100 meters"],
         "id": 505
+      },
+      {
+        "type": "kill",
+        "target": "PMCs",
+        "number": 3,
+        "location": 8,
+        "with": ["Headshot from more than 100 meters"]
       }
     ],
     "gameId": "5c0bde0986f77479cf22c2f8"
@@ -12288,65 +12302,124 @@
     "gameId": "626bd75b05f287031503c7f6"
   },
   {
-    "id": 249,
+    "id": 250,
     "require": {
-      "level": null,
-      "quests": [232]
+      "level": 5,
+      "quests": [157, 251]
     },
-    "giver": 0,
-    "turnin": 0,
-    "title": "Reconnaissance",
+    "giver": 6,
+    "turnin": 6,
+    "title": "The Delicious Sausage",
     "locales": {
-      "en": "Reconnaissance"
+      "en": "The Delicious Sausage"
     },
     "nokappa": false,
-    "wiki": "https://escapefromtarkov.fandom.com/wiki/Reconnaissance",
-    "exp": 18000,
+    "wiki": "https://escapefromtarkov.fandom.com/wiki/The_Delicious_Sausage",
+    "exp": 2600,
     "unlocks": [],
     "reputation": [
       {
-        "trader": 0,
-        "rep": 0.03
+        "trader": 6,
+        "rep": 0.01
       }
     ],
     "objectives": [
       {
         "type": "locate",
-        "target": "first office building roof",
+        "target": "Shestyorochka store at Nikitskaya street",
         "number": 1,
-        "location": 7,
-        "id": 533,
-        "gps": {
-          "leftPercent": 44.56,
-          "topPercent": 21.75,
-          "floor": "Ground_Level"
-        }
+        "location": 8
       },
       {
         "type": "locate",
-        "target": "second office building roof",
+        "target": "Sparja store at Primorsky ave",
         "number": 1,
-        "location": 7,
-        "id": 534,
-        "gps": {
-          "leftPercent": 57.49,
-          "topPercent": 14.47,
-          "floor": "Ground_Level"
-        }
+        "location": 8
       },
       {
         "type": "locate",
-        "target": "third office building roof",
+        "target": "Sparja store in Pinewood hotel",
         "number": 1,
-        "location": 7,
-        "id": 535,
-        "gps": {
-          "leftPercent": 65.67,
-          "topPercent": 19.08,
-          "floor": "Ground_Level"
-        }
+        "location": 8
+      },
+      {
+        "type": "locate",
+        "target": "Goshan store in Concordia",
+        "number": 1,
+        "location": 8
+      },
+      {
+        "type": "find",
+        "target": "635a758bfefc88a93f021b8a",
+        "number": 1,
+        "location": -1
       }
     ],
-    "gameId": "626bd75c71bd851e971b82a5"
+    "gameId": "63a88045abf76d719f42d715"
+  },
+  {
+    "id": 251,
+    "require": {
+      "level": 10,
+      "quests": []
+    },
+    "giver": 6,
+    "turnin": 6,
+    "title": "Cease Fire!",
+    "locales": {
+      "en": "Cease Fire!"
+    },
+    "nokappa": true,
+    "wiki": "https://escapefromtarkov.fandom.com/wiki/Cease_Fire!",
+    "exp": 5600,
+    "unlocks": [],
+    "reputation": [
+      {
+        "trader": 6,
+        "rep": 0.02
+      }
+    ],
+    "objectives": [
+      {
+        "type": "survive",
+        "target": "Klimov Street",
+        "number": 1,
+        "location": 8
+      }
+    ],
+    "gameId": "639136e84ed9512be67647db"
+  },
+  {
+    "id": 252,
+    "require": {
+      "level": 15,
+      "quests": [245]
+    },
+    "giver": 4,
+    "turnin": 4,
+    "title": "Broadcast - Part 2",
+    "locales": {
+      "en": "Broadcast - Part 2"
+    },
+    "nokappa": true,
+    "wiki": "https://escapefromtarkov.fandom.com/wiki/Broadcast_-_Part_2",
+    "exp": 7400,
+    "unlocks": [],
+    "reputation": [
+      {
+        "trader": 4,
+        "rep": 0.02
+      }
+    ],
+    "objectives": [
+      {
+        "type": "locate",
+        "target": "place of bloody broadcast inside the grocery store",
+        "number": 1,
+        "location": 8
+      }
+    ],
+    "gameId": "63913715f8e5dd32bf4e3aaa"
   }
+
 ]
