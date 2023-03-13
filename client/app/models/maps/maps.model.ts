@@ -1,3 +1,15 @@
+import {Type} from 'class-transformer';
+
+export class LeafLeftMapSetup {
+  fileName!: string;
+  minZoom!: number;
+  maxZoom!: number;
+  zoom!: number;
+  center!: number[];
+  widthPx!: number;
+  heightPx!: number;
+}
+
 export class MapInfoModel {
   id!: number;
   locale!: {
@@ -8,12 +20,8 @@ export class MapInfoModel {
   description!: string;
   enemies!: string[];
   raidDuration!: { day: number, night: number };
-  svg!: {
-    file: string,
-    floors: string[],
-    defaultFloor: string
-  }
-
+  @Type(() => LeafLeftMapSetup)
+  leafletSetup!: LeafLeftMapSetup;
 }
 
 export class MapsModel {

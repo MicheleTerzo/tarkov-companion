@@ -1,10 +1,11 @@
-import {Component, ElementRef, Input, ViewChild} from '@angular/core';
-import {CommonModule}                            from '@angular/common';
-import {ProgressBarModule}                       from 'primeng/progressbar';
-import {TooltipModule}                           from 'primeng/tooltip';
-import {OverlayPanelModule}                      from 'primeng/overlaypanel';
-import {MapInfoModel}                            from '../../models/maps/maps.model';
-import * as L                                    from 'leaflet';
+import {Component, Input}   from '@angular/core';
+import {CommonModule}       from '@angular/common';
+import {ProgressBarModule}  from 'primeng/progressbar';
+import {TooltipModule}      from 'primeng/tooltip';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
+import {MapInfoModel}       from '../../models/maps/maps.model';
+import * as L               from 'leaflet';
+import {Icon}               from 'leaflet';
 
 @Component({
   selector   : 'app-svg-map',
@@ -14,9 +15,6 @@ import * as L                                    from 'leaflet';
   styleUrls  : ['./svg-map.component.scss']
 })
 export class SvgMapComponent {
-  @ViewChild('container') container!: ElementRef;
-  loading = true;
-  markerOverlayContent: any;
   private _mapInfo!: MapInfoModel;
   get mapInfo(): MapInfoModel {
     return this._mapInfo;
@@ -24,36 +22,33 @@ export class SvgMapComponent {
 
   @Input() set mapInfo(value: MapInfoModel) {
     this._mapInfo = value;
-    this.loading = true;
     this.loadMap().then();
   }
 
-  /*onMarkerEnter($event: MouseEvent, op: OverlayPanel, index: number): void {
-   this.markerOverlayContent = {
-   objectiveName: this.mapInfo.objectives[index].completeString,
-   floor        : this.mapInfo.objectives[index].gps?.floor
-   };
-   op.show($event);
-   }*/
-
-  /*private async loadMap(): Promise<void> {
-   const element = this.container.nativeElement;
-   d3.select(element).selectAll('svg').remove();
-   const mapSvg = await d3.svg(`assets/maps/edites/${this.mapInfo.svg.file}`);
-   d3.select(element).node()?.append(mapSvg.documentElement);
-   d3.select(element).select('svg').style('width', '100%');
-   d3.select(element).select('svg').style('height', '100%');
-   this.loading = false;
-   }*/
   async loadMap(): Promise<void> {
-    this.loading = false;
     const map = L.map('map', {
-      crs: L.CRS.Simple,
-      minZoom: -10
+      crs    : L.CRS.Simple,
+      minZoom: -2,
+      maxZoom: 1,
+      center : [2012.5, 3840],
+      zoom   : -2
     });
-    const imageUrl = `assets/maps/CustomsLargeExpansionGloryMonki.png`;
-
-    L.imageOverlay(imageUrl, [[0,0], [1080, 1920]]).addTo(map);
-    map.fitBounds([[0,0], [1080, 1920]]);
+    const width = 7680;
+    const height = 4025;
+    const sw = map.unproject([0, height], map.getMaxZoom() - 1);
+    const nw = map.unproject([width, 0], map.getMaxZoom() - 1);
+    const bounds = new L.LatLngBounds(sw, nw);
+    const imageUrl = `assets/maps/png/Customs.png`;
+    // @ts-ignore
+    L.imageOverlay(imageUrl, bounds).addTo(map);
+    // @ts-ignore
+    map.setMaxBounds(bounds);
+    const marker = L.latLng([2000, 3000]);
+    L.marker(marker, {
+      icon       : new Icon({iconUrl: 'assets/images/icons/gps-ping-icon.ico', iconSize: [50, 60]}
+      ),
+      title      : 'some title',
+      riseOnHover: true
+    }).addTo(map);
   }
 }

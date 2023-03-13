@@ -1,31 +1,5 @@
-<!--<div class="grid">
-  <div class="col-12 map-container"
-       #container>
-    <p-progressBar mode="indeterminate"
-                   *ngIf="loading"></p-progressBar>
-    <ng-container *ngIf="!loading">
-       <i class="pi pi-map-marker marker"
-          *ngFor="let obj of mapInfo.objectives; let i = index"
-          [style]="{position: 'absolute', top: obj.gps!.topPercent.toString()+'%', left: obj.gps!.leftPercent.toString()+'%'}"
-          (mouseenter)="onMarkerEnter($event, op, i)"
-          (mouseleave)="op.hide()"></i>
-    </ng-container>
+<div class="map-container">
+  <div class="map-frame">
+    <div id="map"></div>
   </div>
-</div>-->
-
-    <div class="map-container">
-      <div id="map"></div>
-    </div>
-
-
-<!--<p-overlayPanel #op>
-  <ng-template pTemplate="">
-    <div class="mb-3">
-      <h4 class="mb-2">Objective</h4>
-      {{markerOverlayContent.objectiveName}}
-    </div>
-    <div>
-      <h4 class="mb-2">Level</h4> {{markerOverlayContent.floor}}
-    </div>
-  </ng-template>
-</p-overlayPanel>-->
+</div>
