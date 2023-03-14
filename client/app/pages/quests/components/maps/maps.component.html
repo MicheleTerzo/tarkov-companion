@@ -1,14 +1,26 @@
 <div class="card">
-  <p-selectButton [options]="mapsSelectionOptions"
+  <p-selectButton (onOptionClick)="onMapsChange()"
                   [formControl]="selectedMapKey"
-                  (onOptionClick)="onMapsChange()"></p-selectButton>
-  <!--  {{selectedMap | json}}-->
-  <div class="grid">
+                  [options]="mapsSelectionOptions"></p-selectButton>
+  <div class="grid mt-3">
     <div class="col-12">
       <app-svg-map [mapInfo]="selectedMap"></app-svg-map>
     </div>
   </div>
 </div>
-<div>
-  {{questsToShow | json}}
+<div class="grid">
+  <div class="col-12">
+    <button (click)="resetSelection()">Reset selection</button>
+  </div>
+  <div *ngFor="let quest of questsToShow; let i = index"
+       class="col-12 flex justify-content-start align-items-center"
+       style="border: 1px solid red">
+    <div class="flex align-items-center justify-content-center mr-3" (click)="onSelectionChange(quest, i)">
+      <i [ngClass]="{'pi pi-eye': isVisible(quest), 'pi-eye-slash': !isVisible(quest)}"></i>
+    </div>
+    <div>
+      <h4>{{quest.title}}</h4>
+      <p>{{quest.giver}}</p>
+    </div>
+  </div>
 </div>

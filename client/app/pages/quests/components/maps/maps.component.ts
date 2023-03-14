@@ -2,17 +2,18 @@ import {Component}                        from '@angular/core';
 import {CommonModule}                     from '@angular/common';
 import {SelectButtonModule}               from 'primeng/selectbutton';
 import {DataService}                      from '../../../../services/data.service';
-import {FormControl, ReactiveFormsModule} from '@angular/forms';
+import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {MapInfoModel}                     from '../../../../models/maps/maps.model';
 import {QuestModel}                       from '../../../../models/quest/quest.model';
 import {QuestObjectiveModel}              from '../../../../models/quest/quest-objective.model';
 import {QUEST_STATUS}                     from '../../../../utils/enums';
 import {SvgMapComponent}                  from '../../../../components/svg-map/svg-map.component';
+import {CheckboxModule} from 'primeng/checkbox';
 
 @Component({
   selector   : 'app-maps',
   standalone : true,
-  imports: [CommonModule, SelectButtonModule, ReactiveFormsModule, SvgMapComponent],
+  imports: [CommonModule, SelectButtonModule, ReactiveFormsModule, SvgMapComponent, CheckboxModule],
   templateUrl: './maps.component.html',
   styleUrls  : ['./maps.component.scss']
 })
@@ -21,12 +22,13 @@ export class MapsComponent {
   selectedMapKey = new FormControl<number>(0, {nonNullable: true});
   selectedMap!: MapInfoModel;
   questsToShow: QuestModel[] = [];
+  filteredQuests: QuestModel[] = [];
 
   constructor(private dataService: DataService) {
-    this.initData();
+    this.initButtons();
   }
 
-  initData(): void {
+ private initButtons(): void {
     for (let map of this.dataService.mapsInfoDb.values()) {
       this.mapsSelectionOptions.push({
         label: map.locale.en.toUpperCase(),
@@ -41,6 +43,7 @@ export class MapsComponent {
     const mapKey = this.selectedMapKey.getRawValue();
     this.selectedMap = this.dataService.mapsInfoDb.get(mapKey)!;
     this.questsToShow = this.filterQuestsToShow();
+    this.filteredQuests = this.questsToShow;
   }
 
   private filterQuestsToShow(): QuestModel[] {
@@ -54,5 +57,17 @@ export class MapsComponent {
       }
       return;
     });
+  }
+
+  resetSelection(): void {
+    this.filteredQuests = this.questsToShow;
+  }
+
+  onSelectionChange(quest: QuestModel, index: number) {
+
+  }
+
+   isVisible(quest: QuestModel): boolean {
+    return !!this.filteredQuests.find(q => q.id === quest.id);
   }
 }
