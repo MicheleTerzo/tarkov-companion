@@ -17,7 +17,7 @@
       "night": 25
     },
     "leafletSetup": {
-      "fileName": "Factory.png",
+      "fileName": "Factory.webp",
       "minZoom": -3,
       "maxZoom": 0,
       "center": [
@@ -46,7 +46,7 @@
       "night": 35
     },
     "leafletSetup": {
-      "fileName": "Customs.png",
+      "fileName": "Customs.webp",
       "minZoom": -2,
       "maxZoom": 0,
       "center": [
@@ -75,10 +75,13 @@
       "night": 40
     },
     "leafletSetup": {
-      "fileName": "Woods.png",
+      "fileName": "Woods.webp",
       "minZoom": -3,
       "maxZoom": 0,
-      "center":  [3421.5, 3497],
+      "center": [
+        3421.5,
+        3497
+      ],
       "widthPx": 6994,
       "heightPx": 6843
     }
@@ -101,10 +104,13 @@
       "night": 50
     },
     "leafletSetup": {
-      "fileName": "Shoreline.png",
+      "fileName": "Shoreline.webp",
       "minZoom": -1,
       "maxZoom": 0,
-      "center":  [990, 1910],
+      "center": [
+        990,
+        1910
+      ],
       "widthPx": 3820,
       "heightPx": 1980
     }
@@ -129,7 +135,10 @@
       "fileName": "Interchange.webp",
       "minZoom": -3,
       "maxZoom": 0,
-      "center":  [3583.5, 6625.5],
+      "center": [
+        3583.5,
+        6625.5
+      ],
       "widthPx": 13251,
       "heightPx": 7167
     }
@@ -153,7 +162,10 @@
       "fileName": "Lab.webp",
       "minZoom": -2,
       "maxZoom": 0,
-      "center":  [990, 1910],
+      "center": [
+        990,
+        1910
+      ],
       "widthPx": 3820,
       "heightPx": 1980
     }
@@ -176,10 +188,13 @@
       "night": 40
     },
     "leafletSetup": {
-      "fileName": "Reserve.png",
+      "fileName": "Reserve.webp",
       "minZoom": -2,
       "maxZoom": 0,
-      "center":  [1392.5, 2350.5],
+      "center": [
+        1392.5,
+        2350.5
+      ],
       "widthPx": 4701,
       "heightPx": 2785
     }
@@ -204,7 +219,10 @@
       "fileName": "Lighthouse.webp",
       "minZoom": -2,
       "maxZoom": 0,
-      "center":  [1890.5, 2065],
+      "center": [
+        1890.5,
+        2065
+      ],
       "widthPx": 4130,
       "heightPx": 3781
     }
@@ -230,7 +248,10 @@
       "fileName": "StreetsOfTarkov.webp",
       "minZoom": -3,
       "maxZoom": 0,
-      "center":  [2197, 3269.5],
+      "center": [
+        2197,
+        3269.5
+      ],
       "widthPx": 6539,
       "heightPx": 4394
     }

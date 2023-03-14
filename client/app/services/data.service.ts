@@ -34,6 +34,7 @@ export class DataService {
     const get$ = this.http.get<QuestModel[]>('assets/db/quests.json');
     const res = await firstValueFrom(get$);
     const instance = plainToInstance(QuestModel, res);
+
     this.questDbArray = instance;
     this.questsDbMap = new Map<string, QuestModel>(Object.entries(instance));
     return this.questsDbMap;

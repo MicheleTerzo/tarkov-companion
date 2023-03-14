@@ -4,13 +4,13 @@ import {GunsmithRequirements} from './gunsmith-requirements.model';
 
 export class QuestObjectiveModel {
   completeString?: string;
-  type!: string ;
+  type!: string;
   target!: string;
   tool?: string;
   number!: number;
   location!: number;
   id!: number;
   @Type(() => QuestGpsPosition)
-  gps?: QuestGpsPosition;
+  gps?: [number, number];
   with?: string[] | GunsmithRequirements[];
 }
