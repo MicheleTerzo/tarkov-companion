@@ -6,7 +6,7 @@
       "ru": "Завод"
     },
     "wiki": "https://escapefromtarkov.gamepedia.com/Factory",
-    "description": "",
+    "description": "The industrial estate and facilities of Chemical Plant No. 16 were rented out illegally to the TerraGroup corporation. During the advent of the Contract Wars, the plant became the scene of numerous firefights between BEAR and USEC that ultimately determined control over the industrial district of Tarkov. Later on, in the wake of the chaos, the plant facilities became a shelter for the remaining civilians, Scavs, and military operatives, including the scattered remains of the BEAR and USEC contingents.",
     "enemies": [
       "Scavs",
       "Tagilla",
@@ -16,15 +16,16 @@
       "day": 20,
       "night": 25
     },
-    "svg": {
-      "file": "Factory.svg",
-      "floors": [
-        "Basement",
-        "Ground_Floor",
-        "First_Floor",
-        "Second_Floor"
+    "leafletSetup": {
+      "fileName": "Customs.png",
+      "minZoom": -2,
+      "maxZoom": 1,
+      "center": [
+        2160,
+        3840
       ],
-      "defaultFloor": "Ground_Floor"
+      "widthPx": 7680,
+      "heightPx": 4320
     }
   },
   "customs": {
@@ -48,7 +49,6 @@
       "fileName": "Customs.png",
       "minZoom": -2,
       "maxZoom": 1,
-      "zoom": -2,
       "center": [
         2012.5,
         3840
@@ -74,12 +74,13 @@
       "day": 40,
       "night": 40
     },
-    "svg": {
-      "file": "Woods.svg",
-      "floors": [
-        "Ground_Level"
-      ],
-      "defaultFloor": "Ground_Level"
+    "leafletSetup": {
+      "fileName": "Woods.png",
+      "minZoom": -3,
+      "maxZoom": 0,
+      "center":  [3421.5, 3497],
+      "widthPx": 6994,
+      "heightPx": 6843
     }
   },
   "shoreline": {
@@ -99,12 +100,13 @@
       "day": 50,
       "night": 50
     },
-    "svg": {
-      "file": "Shoreline.svg",
-      "floors": [
-        "Ground_Level"
-      ],
-      "defaultFloor": "Ground_Level"
+    "leafletSetup": {
+      "fileName": "Shoreline.png",
+      "minZoom": -1,
+      "maxZoom": 0,
+      "center":  [990, 1910],
+      "widthPx": 3820,
+      "heightPx": 1980
     }
   },
   "interchange": {
@@ -166,13 +168,14 @@
       "day": 40,
       "night": 40
     },
-    "svg": {
-      "file": "Reserve.svg",
-      "floors": [
-        "Bunkers",
-        "Ground_Level"
-      ],
-      "defaultFloor": "Ground_Level"
+    "leafletSetup": {
+      "fileName": "Reserve.png",
+      "minZoom": -3,
+      "maxZoom": 0,
+      "zoom": -3,
+      "center":  [1392.5, 2350.5],
+      "widthPx": 4701,
+      "heightPx": 2785
     }
   },
   "lighthouse": {

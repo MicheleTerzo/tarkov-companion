@@ -28,26 +28,24 @@ export class SvgMapComponent {
   async loadMap(): Promise<void> {
     const map = L.map('map', {
       crs    : L.CRS.Simple,
-      minZoom: -2,
-      maxZoom: 1,
-      center : [2012.5, 3840],
-      zoom   : -2
+      minZoom: -1,
+      maxZoom: 0,
+      center : [990, 1910],
     });
-    const width = 7680;
-    const height = 4025;
-    const sw = map.unproject([0, height], map.getMaxZoom() - 1);
-    const nw = map.unproject([width, 0], map.getMaxZoom() - 1);
-    const bounds = new L.LatLngBounds(sw, nw);
-    const imageUrl = `assets/maps/png/Customs.png`;
+    const width = 3820;
+    const height = 1980;
+    const bounds = new L.LatLngBounds([0,0], [height, width]);
+    const imageUrl = `assets/maps/Shoreline.png`;
     // @ts-ignore
     L.imageOverlay(imageUrl, bounds).addTo(map);
     // @ts-ignore
     map.setMaxBounds(bounds);
-    const marker = L.latLng([2000, 3000]);
+    map.fitBounds(bounds)
+    const marker = L.latLng([990, 1910]);
     L.marker(marker, {
       icon       : new Icon({iconUrl: 'assets/images/icons/gps-ping-icon.ico', iconSize: [50, 60]}
       ),
-      title      : 'some title',
+      title      : 'Some title',
       riseOnHover: true
     }).addTo(map);
   }
