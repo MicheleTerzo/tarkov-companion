@@ -17,9 +17,9 @@
       "night": 25
     },
     "leafletSetup": {
-      "fileName": "Customs.png",
-      "minZoom": -2,
-      "maxZoom": 1,
+      "fileName": "Factory.png",
+      "minZoom": -3,
+      "maxZoom": 0,
       "center": [
         2160,
         3840
@@ -48,7 +48,7 @@
     "leafletSetup": {
       "fileName": "Customs.png",
       "minZoom": -2,
-      "maxZoom": 1,
+      "maxZoom": 0,
       "center": [
         2012.5,
         3840
@@ -125,14 +125,13 @@
       "day": 45,
       "night": 45
     },
-    "svg": {
-      "file": "Interchange.svg",
-      "floors": [
-        "Ground_Level",
-        "First_Floor",
-        "Second_Floor"
-      ],
-      "defaultFloor": "Ground_Level"
+    "leafletSetup": {
+      "fileName": "Interchange.webp",
+      "minZoom": -3,
+      "maxZoom": 0,
+      "center":  [3583.5, 6625.5],
+      "widthPx": 13251,
+      "heightPx": 7167
     }
   },
   "lab": {
@@ -149,6 +148,14 @@
     "raidDuration": {
       "day": 40,
       "night": 40
+    },
+    "leafletSetup": {
+      "fileName": "Lab.webp",
+      "minZoom": -2,
+      "maxZoom": 0,
+      "center":  [990, 1910],
+      "widthPx": 3820,
+      "heightPx": 1980
     }
   },
   "reserve": {
@@ -170,9 +177,8 @@
     },
     "leafletSetup": {
       "fileName": "Reserve.png",
-      "minZoom": -3,
+      "minZoom": -2,
       "maxZoom": 0,
-      "zoom": -3,
       "center":  [1392.5, 2350.5],
       "widthPx": 4701,
       "heightPx": 2785
@@ -194,12 +200,13 @@
       "day": 40,
       "night": 40
     },
-    "svg": {
-      "file": "Lighthouse.svg",
-      "floors": [
-        "Ground_Level"
-      ],
-      "defaultFloor": "Ground_Level"
+    "leafletSetup": {
+      "fileName": "Lighthouse.webp",
+      "minZoom": -2,
+      "maxZoom": 0,
+      "center":  [1890.5, 2065],
+      "widthPx": 4130,
+      "heightPx": 3781
     }
   },
   "streets": {
@@ -219,12 +226,13 @@
       "day": 50,
       "night": 50
     },
-    "svg": {
-      "file": "Streets.svg",
-      "floors": [
-        "Ground_Level"
-      ],
-      "defaultFloor": "Ground_Level"
+    "leafletSetup": {
+      "fileName": "StreetsOfTarkov.webp",
+      "minZoom": -3,
+      "maxZoom": 0,
+      "center":  [2197, 3269.5],
+      "widthPx": 6539,
+      "heightPx": 4394
     }
   }
 }

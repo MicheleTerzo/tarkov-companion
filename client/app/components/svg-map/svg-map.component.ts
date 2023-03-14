@@ -1,11 +1,11 @@
-import {Component, Input}   from '@angular/core';
-import {CommonModule}       from '@angular/common';
-import {ProgressBarModule}  from 'primeng/progressbar';
-import {TooltipModule}      from 'primeng/tooltip';
+import {Component, Input} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {ProgressBarModule} from 'primeng/progressbar';
+import {TooltipModule} from 'primeng/tooltip';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
-import {MapInfoModel}       from '../../models/maps/maps.model';
-import * as L               from 'leaflet';
-import {Icon}               from 'leaflet';
+import {LeafLeftMapSetup, MapInfoModel} from '../../models/maps/maps.model';
+import * as Leaflet from 'leaflet';
+import {Icon, LatLngExpression, Map} from 'leaflet';
 
 @Component({
   selector   : 'app-svg-map',
@@ -15,6 +15,7 @@ import {Icon}               from 'leaflet';
   styleUrls  : ['./svg-map.component.scss']
 })
 export class SvgMapComponent {
+  private leafletMap?: Map;
   private _mapInfo!: MapInfoModel;
   get mapInfo(): MapInfoModel {
     return this._mapInfo;
@@ -22,31 +23,37 @@ export class SvgMapComponent {
 
   @Input() set mapInfo(value: MapInfoModel) {
     this._mapInfo = value;
-    this.loadMap().then();
+    this.loadMap(value.leafletSetup);
   }
 
-  async loadMap(): Promise<void> {
-    const map = L.map('map', {
-      crs    : L.CRS.Simple,
-      minZoom: -1,
-      maxZoom: 0,
-      center : [990, 1910],
+   private loadMap(mapSetup: LeafLeftMapSetup): void {
+    if(this.leafletMap){
+      this.removeMap(this.leafletMap);
+    }
+    const map = Leaflet.map('map', {
+      crs    : Leaflet.CRS.Simple,
+      minZoom: mapSetup.minZoom,
+      maxZoom: mapSetup.maxZoom,
+      center : mapSetup.center as LatLngExpression,
     });
-    const width = 3820;
-    const height = 1980;
-    const bounds = new L.LatLngBounds([0,0], [height, width]);
-    const imageUrl = `assets/maps/Shoreline.png`;
-    // @ts-ignore
-    L.imageOverlay(imageUrl, bounds).addTo(map);
-    // @ts-ignore
+    const bounds = new Leaflet.LatLngBounds([0,0], [mapSetup.heightPx, mapSetup.widthPx]);
+    const imageUrl = `assets/maps/${mapSetup.fileName}`;
+    Leaflet.imageOverlay(imageUrl, bounds).addTo(map);
     map.setMaxBounds(bounds);
-    map.fitBounds(bounds)
-    const marker = L.latLng([990, 1910]);
-    L.marker(marker, {
-      icon       : new Icon({iconUrl: 'assets/images/icons/gps-ping-icon.ico', iconSize: [50, 60]}
-      ),
-      title      : 'Some title',
-      riseOnHover: true
+    map.fitBounds(bounds);
+    this.leafletMap = map;
+  }
+
+  private createMarkers(map: Map): void {
+    const markerPos = Leaflet.latLng([0,0]);
+    const icon = new Icon({iconUrl: 'assets/images/icons/gps-ping-icon.ico', iconSize: [50, 60]})
+    const marker = Leaflet.marker(markerPos, {
+      icon: icon
     }).addTo(map);
+    marker.bindTooltip("<h1>my tooltip text</h1> <br> <p>other text</p>");
+  }
+
+  private removeMap(map: Map): void {
+    map.remove();
   }
 }
