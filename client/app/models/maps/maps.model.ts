@@ -5,7 +5,7 @@ export class LeafLeftMapSetup {
   minZoom!: number;
   maxZoom!: number;
   zoom!: number;
-  center!: number[];
+  center!: [number, number];
   widthPx!: number;
   heightPx!: number;
 }

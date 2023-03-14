@@ -1,14 +1,14 @@
-import {Component, Input, OnDestroy}         from '@angular/core';
-import {CommonModule}                        from '@angular/common';
-import {ProgressBarModule}                   from 'primeng/progressbar';
-import {TooltipModule}                       from 'primeng/tooltip';
-import {OverlayPanelModule}                  from 'primeng/overlaypanel';
-import {LeafLeftMapSetup, MapInfoModel}      from '../../models/maps/maps.model';
-import * as Leaflet                          from 'leaflet';
-import {Icon, LatLngExpression, Map, Marker} from 'leaflet';
-import {Subject, takeUntil}                  from 'rxjs';
-import {MapsService}                         from '../../services/maps.service';
-import {QuestObjectiveModel}                 from '../../models/quest/quest-objective.model';
+import {Component, Input, OnDestroy}    from '@angular/core';
+import {CommonModule}                   from '@angular/common';
+import {ProgressBarModule}              from 'primeng/progressbar';
+import {TooltipModule}                  from 'primeng/tooltip';
+import {OverlayPanelModule}             from 'primeng/overlaypanel';
+import {LeafLeftMapSetup, MapInfoModel} from '../../models/maps/maps.model';
+import * as Leaflet                     from 'leaflet';
+import {Icon, Map, Marker}              from 'leaflet';
+import {Subject, takeUntil}             from 'rxjs';
+import {MapsService}                    from '../../services/maps.service';
+import {QuestObjectiveModel}            from '../../models/quest/quest-objective.model';
 
 @Component({
   selector   : 'app-svg-map',
@@ -48,7 +48,7 @@ export class SvgMapComponent implements OnDestroy {
       crs    : Leaflet.CRS.Simple,
       minZoom: mapSetup.minZoom,
       maxZoom: mapSetup.maxZoom,
-      center : mapSetup.center as LatLngExpression
+      center : mapSetup.center
     });
     const bounds = new Leaflet.LatLngBounds([0, 0], [mapSetup.heightPx, mapSetup.widthPx]);
     const imageUrl = `assets/maps/${mapSetup.fileName}`;
@@ -74,7 +74,7 @@ export class SvgMapComponent implements OnDestroy {
 
   private createMarkers(obj: QuestObjectiveModel): void {
     const markerPos = Leaflet.latLng(obj.gps!);
-    const icon = new Icon({iconUrl: 'assets/images/icons/gps-ping-icon.ico', iconSize: [50, 60]});
+    const icon = new Icon({iconUrl: 'assets/images/icons/target.png', iconSize: [40, 40]});
     const marker = Leaflet.marker(markerPos, {
       icon: icon
     }).addTo(this.leafletMap!);
