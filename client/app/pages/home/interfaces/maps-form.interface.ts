@@ -1,5 +1,5 @@
 import {FormArray, FormControl} from '@angular/forms';
-import {QuestModel} from '../../../models/quest/quest.model';
+import {QuestModel}             from '../../../models/quest/quest.model';
 
 export interface MapsFormInterface {
   selectedMapKey: FormControl<number>;

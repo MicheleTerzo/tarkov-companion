@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {DataService}       from './services/data.service';
+import {QuestsService}     from './services/quests.service';
+import {MapsService}       from './services/maps.service';
+import {ProfileService}    from './services/profile.service';
 
 @Component({
   selector   : 'app-root',
@@ -7,7 +9,9 @@ import {DataService}       from './services/data.service';
   styleUrls  : ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  constructor(private dataService: DataService) {
+  constructor(private questService: QuestsService,
+    private mapsService: MapsService,
+    private profileService: ProfileService) {
   }
 
   async ngOnInit(): Promise<void> {
@@ -15,6 +19,10 @@ export class AppComponent implements OnInit {
   }
 
   async initData(): Promise<void> {
-    await this.dataService.initData();
+    await Promise.all([
+      this.questService.initData(),
+      this.mapsService.initData(),
+      this.profileService.initData()
+    ]);
   }
 }

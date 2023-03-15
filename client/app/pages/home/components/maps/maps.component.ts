@@ -1,7 +1,7 @@
 import {Component}                        from '@angular/core';
 import {CommonModule}                     from '@angular/common';
 import {SelectButtonModule}               from 'primeng/selectbutton';
-import {DataService}                      from '../../../../services/data.service';
+import {QuestsService}                    from '../../../../services/quests.service';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {MapInfoModel}                     from '../../../../models/maps/maps.model';
 import {QuestModel}                       from '../../../../models/quest/quest.model';
@@ -27,7 +27,8 @@ export class MapsComponent {
   readonly traders = TRADERS;
   readonly locations = LOCATIONS;
 
-  constructor(private dataService: DataService, private mapsService: MapsService) {
+  constructor(private questsService: QuestsService,
+    private mapsService: MapsService) {
     this.initButtons();
   }
 
@@ -37,7 +38,7 @@ export class MapsComponent {
 
   onMapChange(): void {
     const mapKey = this.selectedMapKey.getRawValue();
-    this.selectedMap = this.dataService.mapsInfoDb.get(mapKey)!;
+    this.selectedMap = this.mapsService.mapsInfoDb.get(mapKey)!;
     this.initData();
   }
 
@@ -69,18 +70,18 @@ export class MapsComponent {
   }
 
   private initButtons(): void {
-    for (let map of this.dataService.mapsInfoDb.values()) {
+    for (let map of this.mapsService.mapsInfoDb.values()) {
       this.mapsSelectionOptions.push({
         label: map.locale.en.toUpperCase(),
         value: map.id
       });
     }
-    this.selectedMap = this.dataService.mapsInfoDb.get(0)!;
+    this.selectedMap = this.mapsService.mapsInfoDb.get(0)!;
     this.initData();
   }
 
   private filterQuestsToShow(): QuestModel[] {
-    return this.dataService.questDbArray.filter((quest) => {
+    return this.questsService.questDbArray.filter((quest) => {
       if (quest.status !== QUEST_STATUS.IN_PROGRESS) {
         return;
       }

@@ -6,7 +6,6 @@
     "types": []
   },
   "files": [
-    "backend/index.ts",
     "client/main.ts"
   ],
   "include": [

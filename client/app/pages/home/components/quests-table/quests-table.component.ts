@@ -1,6 +1,6 @@
 import {Component, OnInit}                                        from '@angular/core';
 import {LOCATIONS, QUEST_STATUS, TRADERS}                         from '../../../../utils/enums';
-import {DataService}                                              from '../../../../services/data.service';
+import {QuestsService}                                            from '../../../../services/quests.service';
 import {QuestModel}                                               from '../../../../models/quest/quest.model';
 import {CommonModule}                                             from '@angular/common';
 import {UserModel}                                                from '../../../../models/user.model';
@@ -15,12 +15,13 @@ import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular
 import {TableFiltersFormInterface}                                from '../../interfaces/table-filters-form.interface';
 import {InputTextModule}                                          from 'primeng/inputtext';
 import {TooltipModule}                                            from 'primeng/tooltip';
-import {
-  QuestRowDetailComponent
-}                                                                 from '../quest-row-detail/quest-row-detail.component';
+import {QuestRowDetailComponent}                                  from './quest-row-detail/quest-row-detail.component';
 import {MultiSelectModule}                                        from 'primeng/multiselect';
 import {AnimateModule}                                            from 'primeng/animate';
-import {ObserverVisibilityDirective}                              from '../../../../directives/observer-visibility.directive';
+import {
+  ObserverVisibilityDirective
+}                                                                 from '../../../../directives/observer-visibility.directive';
+import {ProfileService}                                           from '../../../../services/profile.service';
 
 @Component({
   selector   : 'app-quests-table',
@@ -44,7 +45,8 @@ export class QuestsTableComponent implements OnInit {
   readonly questStatus = QUEST_STATUS;
   readonly locationNames = LOCATIONS;
 
-  constructor(private dataService: DataService) {
+  constructor(private questsService: QuestsService,
+    private profileService: ProfileService) {
     this.tableFiltersForm = this.initForm();
   }
 
@@ -53,14 +55,13 @@ export class QuestsTableComponent implements OnInit {
   }
 
   getRequiredQuest(reqQuestId: number): QuestModel | undefined {
-    return this.dataService.questsDbMap.get(reqQuestId.toString());
+    return this.questsService.questsDbMap.get(reqQuestId.toString());
   }
 
   private async initData(): Promise<void> {
-    const profile = await this.dataService.getProfile();
-    await this.dataService.getQuests();
-    const questDb = this.dataService.questDbArray;
-    this.userActiveQuests = this.findCommonQuests(profile, questDb);
+    const profile = await this.profileService.userProfile;
+    const questDb = this.questsService.questDbArray;
+    this.userActiveQuests = this.findCommonQuests(profile!, questDb);
     this.filteredUserQuests = this.userActiveQuests;
   }
 

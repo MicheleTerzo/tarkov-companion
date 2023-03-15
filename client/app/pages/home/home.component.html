@@ -1,1 +1,17 @@
-<p>home works!</p>
+<p-tabView>
+  <p-tabPanel header="Profile">
+    <app-profile></app-profile>
+  </p-tabPanel>
+  <p-tabPanel leftIcon="pi pi-database"
+              header="Quests">
+    <ng-template pTemplate="content">
+      <app-quests-table></app-quests-table>
+    </ng-template>
+  </p-tabPanel>
+  <p-tabPanel leftIcon="pi pi-map"
+              header="Maps">
+    <ng-template pTemplate="content">
+      <app-maps></app-maps>
+    </ng-template>
+  </p-tabPanel>
+</p-tabView>

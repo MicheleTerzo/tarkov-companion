@@ -1,11 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CommonModule}             from '@angular/common';
-import {DataService}              from '../../../../services/data.service';
-import {QuestModel}               from '../../../../models/quest/quest.model';
-import {QUEST_STATUS, TRADERS}    from '../../../../utils/enums';
-import {SvgMapComponent}          from '../../../../components/svg-map/svg-map.component';
-import {asInstance}               from '../../../../utils/constants';
-import {GunsmithRequirements}     from '../../../../models/quest/gunsmith-requirements.model';
+import {CommonModule}  from '@angular/common';
+import {QuestsService} from '../../../../../services/quests.service';
+import {QuestModel}    from '../../../../../models/quest/quest.model';
+import {QUEST_STATUS, TRADERS} from '../../../../../utils/enums';
+import {SvgMapComponent}       from '../../../../../components/svg-map/svg-map.component';
+import {asInstance}            from '../../../../../utils/constants';
+import {GunsmithRequirements}  from '../../../../../models/quest/gunsmith-requirements.model';
 
 @Component({
   selector   : 'app-quest-row-detail',
@@ -21,11 +21,11 @@ export class QuestRowDetailComponent implements OnInit {
   questStatus = QUEST_STATUS;
   readonly traderNames = TRADERS;
 
-  constructor(private dataService: DataService) {
+  constructor(private questsService: QuestsService) {
   }
 
   getParsedName(key: string): string {
-    return this.dataService.itemInfoDb.get(key)?.name ?? '';
+    return this.questsService.itemInfoDb.get(key)?.name ?? '';
   }
 
   getGunsmithString(model: GunsmithRequirements): string {
