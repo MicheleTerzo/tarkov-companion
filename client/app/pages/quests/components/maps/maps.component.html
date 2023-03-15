@@ -3,7 +3,7 @@
                   [formControl]="selectedMapKey"
                   [options]="mapsSelectionOptions"></p-selectButton>
   <div class="grid mt-3">
-    <div class="col-12">
+    <div class="col-10 col-offset-1">
       <app-svg-map [mapInfo]="selectedMap"></app-svg-map>
     </div>
   </div>
@@ -13,18 +13,33 @@
     <button (click)="resetSelection()">Reset selection</button>
   </div>
   <div *ngFor="let quest of questsToShow; let i = index"
-       class="col-12 flex justify-content-start align-items-center quest-row p-3"
-       style="border: 1px solid red">
-    <div class="flex align-items-center justify-content-center mr-3">
+       class="col-12 p-3 mb-4 quest-row">
+    <div class=" grid">
+    <div class="col-1 flex align-items-center">
       <button pButton
               (click)="onSelectionChange(quest, i)"
               type="button"
               [icon]="isVisible(quest) ? 'pi pi-eye' : 'pi pi-eye-slash'"
               class="p-button-rounded p-button-text"></button>
     </div>
-    <div>
+    <div class="col-3 flex flex-column justify-content-center">
       <h4 class="mb-3">{{quest.title}}</h4>
-      <p>{{quest.giver}}</p>
+      <p>{{traders[quest.giver]}}</p>
+    </div>
+    <div class="col flex flex-column justify-content-center">
+      <ng-container *ngFor="let obj of quest.objectives">
+        <p class="text-sm mb-2 active-obj"
+           *ngIf="isObjectiveOnThisMap(obj.location); else otherMapTemplate">{{obj.completeString}}</p>
+        <ng-template #otherMapTemplate>
+          <p class="text-xs font-italic mb-2 inactive-obj">OBJECTIVE IS ON {{locations[obj.location]}} MAP</p>
+        </ng-template>
+      </ng-container>
+    </div>
+    <div class="col flex flex-column justify-content-center">
+      <h4 class="mb-3">Open Wiki</h4>
+      <a [href]="quest.wiki"
+         target="_blank"><i class="pi pi-external-link"></i></a>
+    </div>
     </div>
   </div>
 </div>

@@ -6,7 +6,7 @@ import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {MapInfoModel}                     from '../../../../models/maps/maps.model';
 import {QuestModel}                       from '../../../../models/quest/quest.model';
 import {QuestObjectiveModel}              from '../../../../models/quest/quest-objective.model';
-import {QUEST_STATUS}                     from '../../../../utils/enums';
+import {LOCATIONS, QUEST_STATUS, TRADERS} from '../../../../utils/enums';
 import {SvgMapComponent}                  from '../../../../components/svg-map/svg-map.component';
 import {CheckboxModule}                   from 'primeng/checkbox';
 import {ButtonModule}                     from 'primeng/button';
@@ -24,9 +24,15 @@ export class MapsComponent {
   selectedMapKey = new FormControl<number>(0, {nonNullable: true});
   selectedMap!: MapInfoModel;
   questsToShow: QuestModel[] = [];
+  readonly traders = TRADERS;
+  readonly locations = LOCATIONS;
 
   constructor(private dataService: DataService, private mapsService: MapsService) {
     this.initButtons();
+  }
+
+  isObjectiveOnThisMap(objLocationId: number): boolean {
+    return objLocationId === this.selectedMap.id;
   }
 
   onMapChange(): void {

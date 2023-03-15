@@ -9,6 +9,8 @@ import {Icon, Map, Marker}              from 'leaflet';
 import {Subject, takeUntil}             from 'rxjs';
 import {MapsService}                    from '../../services/maps.service';
 import {QuestObjectiveModel}            from '../../models/quest/quest-objective.model';
+import {QuestModel}                     from '../../models/quest/quest.model';
+import {TRADERS}                        from '../../utils/enums';
 
 @Component({
   selector   : 'app-svg-map',
@@ -21,6 +23,7 @@ export class SvgMapComponent implements OnDestroy {
   private leafletMap?: Map;
   private mapMarkers: Marker[] = [];
   private destroy$ = new Subject<void>();
+  private readonly traders = TRADERS
 
   constructor(private mapsService: MapsService) {
   }
@@ -65,28 +68,29 @@ export class SvgMapComponent implements OnDestroy {
       quests.forEach(quest => {
         quest.objectives.forEach(obj => {
           if (obj.location === this.mapInfo.id && obj.gps) {
-            this.createMarkers(obj);
+            this.createMarkers(obj, quest);
           }
         });
       });
     });
   }
 
-  private createMarkers(obj: QuestObjectiveModel): void {
+  private createMarkers(obj: QuestObjectiveModel, quest: QuestModel): void {
     const markerPos = Leaflet.latLng(obj.gps!);
     const icon = new Icon({iconUrl: 'assets/images/icons/target.png', iconSize: [40, 40]});
     const marker = Leaflet.marker(markerPos, {
       icon: icon
     }).addTo(this.leafletMap!);
     this.mapMarkers.push(marker);
+    this.createTooltip(marker, quest, obj);
   }
 
   private removeMarkers(): void {
     this.mapMarkers.forEach(marker => marker.removeFrom(this.leafletMap!));
   }
 
-  private createTooltip(marker: Marker): void {
-    marker.bindTooltip('<h1>my tooltip text</h1> <br> <p>other text</p>');
+  private createTooltip(marker: Marker, quest: QuestModel, obj: QuestObjectiveModel): void {
+    marker.bindTooltip(`<h2>${quest.title}</h2> <h3>${this.traders[quest.giver]}</h3> <p>${obj.completeString}</p>`);
   }
 
   private removeMap(map: Map): void {
