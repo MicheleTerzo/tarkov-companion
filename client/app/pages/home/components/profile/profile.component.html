@@ -1,4 +1,4 @@
-<div *ngIf="userProfile as profile"
+<div *ngIf="userProfile as profile; else noProfile"
      class="grid p-3">
   <div class="col-12 flex justify-content-between align-items-center">
     <div class="flex justify-content-start align-items-center">
@@ -13,7 +13,8 @@
     </div>
     <div>
       <img src="assets/images/{{profile.Info.Side}}.png"
-           alt="" style="width: 150px; height: 150px">
+           alt=""
+           style="width: 150px; height: 150px">
     </div>
   </div>
   <div class="col-12">
@@ -45,3 +46,23 @@
     </p-fieldset>
   </div>
 </div>
+<ng-template #noProfile>
+  <div class="grid">
+    <div class="mb-2 col-12">
+      <h4 class="">Seems like you need to set the path of your profile. Insert the absolute path and then press
+        save.</h4>
+    </div>
+    <div class="col-11">
+      <input type="text"
+             name=""
+             id=""
+             pInputText
+             [(ngModel)]="path"
+             class="w-full mr-2"
+      >
+    </div>
+    <div class="col-1">
+      <p-button label="Save path" (onClick)="saveProfilePath()"></p-button>
+    </div>
+  </div>
+</ng-template>

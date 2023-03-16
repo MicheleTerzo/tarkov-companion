@@ -1,11 +1,14 @@
-import {NgModule}                from '@angular/core';
-import {BrowserModule}           from '@angular/platform-browser';
-import {AppRoutingModule}        from './app-routing.module';
-import {AppComponent}            from './app.component';
-import {HttpClientModule}        from '@angular/common/http';
-import {FormsModule}             from '@angular/forms';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {HeaderComponent}         from './components/header/header.component';
+import {NgModule}                            from '@angular/core';
+import {BrowserModule}                       from '@angular/platform-browser';
+import {AppRoutingModule}                    from './app-routing.module';
+import {AppComponent}                        from './app.component';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {FormsModule}                         from '@angular/forms';
+import {BrowserAnimationsModule}             from '@angular/platform-browser/animations';
+import {HeaderComponent}                     from './components/header/header.component';
+import {MessageService}                      from 'primeng/api';
+import {ToastModule}                         from 'primeng/toast';
+import {ErrorInterceptor}                    from './services/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -17,10 +20,13 @@ import {HeaderComponent}         from './components/header/header.component';
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
-    HeaderComponent
+    HeaderComponent,
+    ToastModule
   ],
-  providers   : [],
-  exports     : [],
+  providers   : [
+    MessageService,
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+  ],
   bootstrap   : [AppComponent]
 })
 export class AppModule {

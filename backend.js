@@ -9,11 +9,26 @@ EXPRESS_APP.use(bodyParser.urlencoded({
   extended: true
 }));
 EXPRESS_APP.use(bodyParser.json());
-EXPRESS_APP.get('/user-profile', (req, res) => {
-  const rawData = fs.readFileSync('F:/Tarkov Single Player/0.13.0.3.22032/user/profiles/bed1be640b83ca4aa59bc20b.json', 'utf-8')
+let profilePath = '';
+EXPRESS_APP.post('/user/path', (req, res) => {
+  profilePath = req.body.path;
+  res.send();
+});
+EXPRESS_APP.get('/user/profile', (req, res) => {
+  if (!profilePath) {
+    res.status(500);
+    return res.json({code: 'E1', message: 'Profile path not set.'})
+  }
+  let rawData;
+  try {
+    rawData = fs.readFileSync(profilePath, 'utf-8')
+  } catch (e) {
+    res.status(500);
+    return res.json({code: 'E2', message: 'Invalid path'})
+  }
   const userProfile = JSON.parse(rawData);
   res.json(userProfile)
-})
+});
 //Starts the Express Server
 EXPRESS_APP.listen('3000', () => {
   console.info(`Backend listening on port: 3000`)
