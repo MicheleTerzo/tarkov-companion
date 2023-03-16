@@ -1,32 +1,25 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {CommonModule}                 from '@angular/common';
-import {ProfileService}               from '../../../../services/profile.service';
-import {ProfileInfoModel, UserModel}  from '../../../../models/profile/user.model';
-import {LevelModelContent}            from '../../../../models/profile/level.model';
-import {Subject, takeUntil}           from 'rxjs';
+import {CommonModule} from '@angular/common';
+import {ProfileService} from '../../../../services/profile.service';
+import {ProfileModel} from '../../../../models/profile/profile.model';
+import {LevelModelContent} from '../../../../models/profile/level.model';
+import {Subject, takeUntil} from 'rxjs';
+import {FieldsetModule} from 'primeng/fieldset';
 
 @Component({
-  selector   : 'app-profile',
-  standalone : true,
-  imports    : [CommonModule],
+  selector: 'app-profile',
+  standalone: true,
+  imports: [CommonModule, FieldsetModule],
   templateUrl: './profile.component.html',
-  styleUrls  : ['./profile.component.scss']
+  styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit, OnDestroy {
-  userProfile?: UserModel;
+  userProfile?: ProfileModel;
   levels!: Map<string, LevelModelContent>;
   levelGroup = '1';
   private destroy$ = new Subject<void>();
 
   constructor(private profileService: ProfileService) {
-  }
-
-  get profileInfo(): ProfileInfoModel | undefined {
-    return this.userProfile?.characters.pmc.Info;
-  }
-
-  getRegistrationDate(unixTimestamp?: number): string {
-    return new Date(unixTimestamp * 1000).toDateString();
   }
 
   ngOnInit(): void {
@@ -41,7 +34,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   private async initData(): Promise<void> {
     await this.initLevels();
     this.initUserSubscription();
-    // await this.profileService.getProfile();
   }
 
   private calculateLevelGroup(pmcLevel: string): string {
@@ -56,9 +48,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.profileService.userProfile$.pipe(takeUntil(this.destroy$)).subscribe(userProfile => {
       if (userProfile) {
         this.userProfile = userProfile;
-        console.log(userProfile.characters.pmc);
-        console.log(new Date(userProfile.characters.pmc.Info.RegistrationDate * 1000))
-        this.levelGroup = this.calculateLevelGroup(userProfile.characters.pmc.Info.Level.toString());
+        this.levelGroup = this.calculateLevelGroup(userProfile.Info.Level.toString());
       }
     });
   }

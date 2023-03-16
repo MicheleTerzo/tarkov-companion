@@ -1,14 +1,38 @@
-<div class="grid p-3"
-     *ngIf="userProfile">
-  <div class="col-12 flex justify-content-between align-items-center">
-    <h1>{{profileInfo?.Nickname}}</h1>
-    <div class="flex justify-content-start align-items-center">
-      <h1>{{profileInfo?.Level}}</h1>
-      <img src="assets/images/levelsgroup/{{levelGroup}}.png"
-           alt="" class="mr-3">
+<div *ngIf="userProfile as profile"
+     class="grid p-3">
+  <div class="col-12 flex justify-content-start align-items-center">
+    <img alt=""
+         class="mr-3"
+         src="assets/images/levelsgroup/{{levelGroup}}.png">
+    <div>
+      <h1>{{profile.Info.Nickname}} </h1>
+      <h3 class="font-italic">{{profile.Info.Level}}</h3>
+      <span class="text-sm font-italic">"{{profile.SurvivorClass}}"</span>
     </div>
   </div>
-  <div class="col">
-    {{getRegistrationDate(profileInfo?.RegistrationDate)}}
+  <div class="col-12">
+    <p-fieldset legend="Aki Info">
+      <div class="grid mod-container">
+        <div class="mb-3 col-12 flex">
+          <h4 class="mr-2">Aki Version: </h4>
+          <span class="font-italic">{{profile.akiInfo.version}}</span>
+        </div>
+        <div class="col-12">
+          <h4>Installed Mods:</h4>
+        </div>
+        <div *ngFor="let mod of profile.akiInfo.mods"
+             class="col-2 mr-2 mod-box">
+          <div class="flex justify-content-start align-content-center mb-2">
+            <strong class="mr-2">Name:</strong><span>{{mod.name}}</span>
+          </div>
+          <div class="flex justify-content-start align-content-center mb-2">
+            <strong class="mr-2">Author:</strong><span>{{mod.author}}</span>
+          </div>
+          <div class="flex justify-content-start align-content-center mb-2">
+            <strong class="mr-2">Version:</strong><span>{{mod.version}}</span>
+          </div>
+        </div>
+      </div>
+    </p-fieldset>
   </div>
 </div>

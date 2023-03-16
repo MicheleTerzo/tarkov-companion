@@ -1,5 +1,5 @@
 import {Injectable}                      from '@angular/core';
-import {UserModel}                       from '../models/profile/user.model';
+import {ProfileModel} from '../models/profile/profile.model';
 import {plainToInstance}                 from 'class-transformer';
 import {HttpClient}                      from '@angular/common/http';
 import {BehaviorSubject, firstValueFrom} from 'rxjs';
@@ -9,7 +9,7 @@ import {LevelModel, LevelModelContent}   from '../models/profile/level.model';
   providedIn: 'root'
 })
 export class ProfileService {
-  _userProfile = new BehaviorSubject<UserModel | undefined>(undefined);
+  _userProfile = new BehaviorSubject<ProfileModel | undefined>(undefined);
   userProfile$ = this._userProfile.asObservable();
   levels: Map<string, LevelModelContent> = new Map();
   private mockProfileUrl = 'assets/db/mock-profile.json';
@@ -23,11 +23,11 @@ export class ProfileService {
   }
 
   async getProfile(): Promise<void> {
-    console.log('called');
     //'http://localhost:3000/user-profile'
     const get$ = this.http.get(this.mockProfileUrl);
     const res = await firstValueFrom(get$);
-    const instance = plainToInstance(UserModel, res);
+    const instance = ProfileModel.generateModel(res);
+    console.log(instance);
     this._userProfile.next(instance);
   }
 
@@ -36,7 +36,6 @@ export class ProfileService {
     const res = await firstValueFrom(get$);
     const instance = plainToInstance(LevelModel, res);
     this.levels = new Map<string, LevelModelContent>(Object.entries(instance));
-    console.log(this.levels);
     return this.levels;
   }
 }

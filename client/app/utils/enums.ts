@@ -37,3 +37,8 @@ export enum LOCATIONS {
   LIGHTHOUSE,
   STREETS_OF_TARKOV
 }
+
+export enum FACTIONS {
+  USEC = 'Usec',
+  BEAR = 'Bear'
+}

@@ -3,7 +3,7 @@ import {LOCATIONS, QUEST_STATUS, TRADERS}                         from '../../..
 import {QuestsService}                                            from '../../../../services/quests.service';
 import {QuestModel}                                               from '../../../../models/quest/quest.model';
 import {CommonModule}                                             from '@angular/common';
-import {UserModel}                                                from '../../../../models/profile/user.model';
+import {ProfileModel}                                                from '../../../../models/profile/profile.model';
 import {CardModule}                                               from 'primeng/card';
 import {TableModule}                                              from 'primeng/table';
 import {ButtonModule}                                             from 'primeng/button';
@@ -73,11 +73,11 @@ export class QuestsTableComponent implements OnInit {
     this.filteredUserQuests = this.userActiveQuests;
   }
 
-  private findCommonQuests(profile: UserModel, questsDB: QuestModel[]): QuestModel[] {
+  private findCommonQuests(profile: ProfileModel, questsDB: QuestModel[]): QuestModel[] {
     if (!questsDB && !profile) {
       return [];
     }
-    const pmcQuests = profile.characters.pmc.Quests;
+    const pmcQuests = profile.Quests;
     this.pmcQuests = pmcQuests;
     return questsDB.map((quest) => {
       const pmcQuest = pmcQuests.find((q) => q.qid === quest.gameId);
