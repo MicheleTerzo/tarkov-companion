@@ -46,14 +46,15 @@ export class MapsComponent {
     this.mapsService.updateQuests([...this.questsToShow]);
   }
 
-  onSelectionChange(quest: QuestModel, index: number) {
+  onSelectionChange(quest: QuestModel) {
     if (this.isVisible(quest)) {
       const fQuests = this.mapsService.getQuests();
+      const index = fQuests.findIndex(fquest => fquest.id === quest.id);
       fQuests.splice(index, 1);
       this.mapsService.updateQuests(fQuests);
     } else {
       const fQuests = this.mapsService.getQuests();
-      fQuests.splice(index, 0, quest);
+      fQuests.push(quest);
       this.mapsService.updateQuests(fQuests);
     }
   }
