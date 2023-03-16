@@ -24,7 +24,7 @@ export class ProfileService {
 
   async getProfile(): Promise<void> {
     //'http://localhost:3000/user-profile'
-    const get$ = this.http.get(this.mockProfileUrl);
+    const get$ = this.http.get('http://localhost:3000/user-profile');
     const res = await firstValueFrom(get$);
     const instance = ProfileModel.generateModel(res);
     console.log(instance);

@@ -3,7 +3,7 @@ import {LOCATIONS, QUEST_STATUS, TRADERS}                         from '../../..
 import {QuestsService}                                            from '../../../../services/quests.service';
 import {QuestModel}                                               from '../../../../models/quest/quest.model';
 import {CommonModule}                                             from '@angular/common';
-import {ProfileModel}                                                from '../../../../models/profile/profile.model';
+import {ProfileModel}                                             from '../../../../models/profile/profile.model';
 import {CardModule}                                               from 'primeng/card';
 import {TableModule}                                              from 'primeng/table';
 import {ButtonModule}                                             from 'primeng/button';

@@ -21,7 +21,7 @@ export class ProfileModel {
   static generateModel(res: any): ProfileModel {
     return plainToInstance(ProfileModel, {
       Info: res.characters.pmc.Info,
-      Quests: res.characters.pmc.Info,
+      Quests: res.characters.pmc.Quests,
       SurvivorClass: res.characters.pmc.SurvivorClass,
       akiInfo: res.aki,
       scavStats: res.characters.scav.Info,

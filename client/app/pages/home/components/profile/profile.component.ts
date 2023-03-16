@@ -1,15 +1,16 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {ProfileService} from '../../../../services/profile.service';
-import {ProfileModel} from '../../../../models/profile/profile.model';
-import {LevelModelContent} from '../../../../models/profile/level.model';
-import {Subject, takeUntil} from 'rxjs';
-import {FieldsetModule} from 'primeng/fieldset';
+import {CommonModule}                 from '@angular/common';
+import {ProfileService}               from '../../../../services/profile.service';
+import {ProfileModel}                 from '../../../../models/profile/profile.model';
+import {LevelModelContent}            from '../../../../models/profile/level.model';
+import {Subject, takeUntil}           from 'rxjs';
+import {FieldsetModule}               from 'primeng/fieldset';
+import {DividerModule}                from 'primeng/divider';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, FieldsetModule],
+  imports: [CommonModule, FieldsetModule, DividerModule],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })

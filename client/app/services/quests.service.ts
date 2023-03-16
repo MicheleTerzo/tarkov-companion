@@ -19,8 +19,8 @@ export class QuestsService {
 
   async initData(): Promise<void> {
     await Promise.all([
-      this.getQuests(),
-      this.getItemInfo()
+      this.getItemInfo(),
+      this.getQuests()
     ]);
   }
 

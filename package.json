@@ -1,14 +1,14 @@
 {
   "name": "tarkov-companion",
   "version": "0.0.0",
-  "main": "dist/backend/index.js",
+  "main": "backend.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build && tsc",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "startBackend": "tsc && node ."
+    "startBackend": "node ."
   },
   "type": "module",
   "private": true,
