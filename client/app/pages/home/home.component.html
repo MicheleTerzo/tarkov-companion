@@ -1,16 +1,20 @@
 <p-tabView>
   <p-tabPanel header="Profile"
               leftIcon="pi pi-user">
-    <app-profile></app-profile>
+    <app-profile (saveProfile)="onSaveProfile($event)"
+                 [userProfile]="userProfile"
+                 [levelGroup]="levelGroup"></app-profile>
   </p-tabPanel>
   <p-tabPanel leftIcon="pi pi-database"
-              header="Quests">
+              header="Quests"
+              [disabled]="!userProfile">
     <ng-template pTemplate="content">
-      <app-quests-table></app-quests-table>
+      <app-quests-table [userActiveQuests]="userActiveQuests"></app-quests-table>
     </ng-template>
   </p-tabPanel>
   <p-tabPanel leftIcon="pi pi-map"
-              header="Maps">
+              header="Maps"
+              [disabled]="!userProfile">
     <ng-template pTemplate="content">
       <app-maps></app-maps>
     </ng-template>

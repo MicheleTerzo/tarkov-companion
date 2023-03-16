@@ -21,8 +21,10 @@ export class ProfileService {
   }
 
   async initData(): Promise<void> {
-    await this.getProfile();
-    await this.getLevels();
+    // await Promise.all([
+     await this.getLevels()
+     await this.getProfile()
+    // ]);
   }
 
   async getProfile(): Promise<void> {
@@ -36,7 +38,7 @@ export class ProfileService {
   async saveProfilePath(path: string): Promise<void> {
     const post$ = this.http.post(`${this.baseUrl}/path`, {path});
     await firstValueFrom(post$);
-    return this.messageService.add({severity:'success', summary:'OK', detail:'Path Saved'})
+    return this.messageService.add({severity: 'success', summary: 'OK', detail: 'Path Saved'});
   }
 
   async getLevels(): Promise<Map<string, LevelModelContent>> {

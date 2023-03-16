@@ -1,7 +1,7 @@
 <!--<pre>{{pmcQuests | json}}</pre>-->
 <p-card>
   <p-table [columns]="tableColumns"
-           [value]="filteredUserQuests"
+           [value]="userActiveQuests"
            dataKey="id"
            rowExpandMode="single">
     <ng-template pTemplate="header">
