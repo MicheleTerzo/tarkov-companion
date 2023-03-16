@@ -1,6 +1,6 @@
 import {Type} from "class-transformer";
 
-class InfoModel {
+export class ProfileInfoModel {
   Nickname!: string;
   Side!: string;
   Level!: number;
@@ -17,8 +17,8 @@ class UserQuestModel {
 }
 
 class PmcModel {
-  @Type(() => InfoModel)
-  Info!: InfoModel;
+  @Type(() => ProfileInfoModel)
+  Info!: ProfileInfoModel;
   @Type(() => UserQuestModel)
   Quests!: UserQuestModel[];
   SurvivorClass!: string;

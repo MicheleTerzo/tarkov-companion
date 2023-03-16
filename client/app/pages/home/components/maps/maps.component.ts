@@ -66,7 +66,6 @@ export class MapsComponent {
     this.questsToShow = [];
     this.questsToShow = this.filterQuestsToShow();
     this.resetSelection();
-    console.log(this.questsToShow);
   }
 
   private initButtons(): void {

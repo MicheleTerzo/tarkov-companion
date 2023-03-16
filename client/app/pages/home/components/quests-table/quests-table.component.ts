@@ -3,7 +3,7 @@ import {LOCATIONS, QUEST_STATUS, TRADERS}                         from '../../..
 import {QuestsService}                                            from '../../../../services/quests.service';
 import {QuestModel}                                               from '../../../../models/quest/quest.model';
 import {CommonModule}                                             from '@angular/common';
-import {UserModel}                                                from '../../../../models/user.model';
+import {UserModel}                                                from '../../../../models/profile/user.model';
 import {CardModule}                                               from 'primeng/card';
 import {TableModule}                                              from 'primeng/table';
 import {ButtonModule}                                             from 'primeng/button';
@@ -22,6 +22,7 @@ import {
   ObserverVisibilityDirective
 }                                                                 from '../../../../directives/observer-visibility.directive';
 import {ProfileService}                                           from '../../../../services/profile.service';
+import {Subject, takeUntil}                                       from 'rxjs';
 
 @Component({
   selector   : 'app-quests-table',
@@ -44,6 +45,7 @@ export class QuestsTableComponent implements OnInit {
   readonly tradersNames = TRADERS;
   readonly questStatus = QUEST_STATUS;
   readonly locationNames = LOCATIONS;
+  private destroy$ = new Subject<void>();
 
   constructor(private questsService: QuestsService,
     private profileService: ProfileService) {
@@ -58,10 +60,16 @@ export class QuestsTableComponent implements OnInit {
     return this.questsService.questsDbMap.get(reqQuestId.toString());
   }
 
+  private initUserSubscription(): void {
+    this.profileService.userProfile$.pipe(takeUntil(this.destroy$)).subscribe(userProfile => {
+      if (userProfile) {
+        this.userActiveQuests = this.findCommonQuests(userProfile, this.questsService.questDbArray);
+      }
+    });
+  }
+
   private async initData(): Promise<void> {
-    const profile = await this.profileService.userProfile;
-    const questDb = this.questsService.questDbArray;
-    this.userActiveQuests = this.findCommonQuests(profile!, questDb);
+    this.initUserSubscription();
     this.filteredUserQuests = this.userActiveQuests;
   }
 
