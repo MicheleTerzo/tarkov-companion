@@ -12,6 +12,7 @@ import {Subject, takeUntil}           from 'rxjs';
 import {LevelModelContent}            from '../../models/profile/level.model';
 import {QuestModel}                   from '../../models/quest/quest.model';
 import {QUEST_STATUS}                 from '../../utils/enums';
+import {MessageService}               from 'primeng/api';
 
 @Component({
   selector   : 'app-home',
@@ -29,7 +30,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(private questsService: QuestsService,
     private mapsService: MapsService,
-    private profileService: ProfileService) {
+    private profileService: ProfileService,
+    private messageService: MessageService) {
   }
 
   ngOnDestroy(): void {
@@ -53,6 +55,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   async refreshProfile(): Promise<void> {
     await this.profileService.getProfile();
+    this.messageService.add({severity: 'success', summary: 'Profile updated'});
   }
 
   async onSaveProfile(path: string): Promise<void> {
@@ -83,6 +86,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private initUserSubscription(): void {
     this.profileService.userProfile$.pipe(takeUntil(this.destroy$)).subscribe(userProfile => {
       if (userProfile) {
+        console.log(userProfile.Quests.find(quest => quest.qid === "5a27b80086f774429a5d7e20"));
         this.userProfile = userProfile;
         this.levelGroup = this.calculateLevelGroup(userProfile.Info.Level.toString());
         this.userActiveQuests = this.findCommonQuests(userProfile, this.questsService.questDbArray);

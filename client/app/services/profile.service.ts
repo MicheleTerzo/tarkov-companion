@@ -22,8 +22,8 @@ export class ProfileService {
 
   async initData(): Promise<void> {
     // await Promise.all([
-     await this.getLevels()
-     await this.getProfile()
+    await this.getLevels();
+    await this.getProfile();
     // ]);
   }
 
